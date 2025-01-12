@@ -6,6 +6,7 @@ import { z } from "zod";
 export const ZUser = z.object({
     id: z.string(),
     username: z.string(),
+    globalName: z.string().optional(),
 });
 
 /**
