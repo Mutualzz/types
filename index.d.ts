@@ -4,10 +4,15 @@ declare module "@mutualzz/types" {
         username: string;
         globalName?: string;
         dateOfBirth: Date;
+        createdTimestamp: number;
+        createdAt: Date;
+        updatedTimestamp: number;
+        updatedAt: Date;
     };
 
     export type UserWithSensitiveData = User & {
         email: string;
         password: string;
+        privateKey: string;
     };
 }
