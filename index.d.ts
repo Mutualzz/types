@@ -10,9 +10,7 @@ declare module "@mutualzz/types" {
         updatedAt: Date;
     };
 
-    export type UserWithSensitiveData = User & {
+    export type UserWithEmail = User & {
         email: string;
-        password: string;
-        privateKey: string;
     };
 }
