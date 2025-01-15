@@ -3,14 +3,11 @@ declare module "@mutualzz/types" {
         id: string;
         username: string;
         globalName?: string;
+        email?: string;
         dateOfBirth: Date;
         createdTimestamp: number;
         createdAt: Date;
         updatedTimestamp: number;
         updatedAt: Date;
-    };
-
-    export type UserWithEmail = User & {
-        email: string;
     };
 }
