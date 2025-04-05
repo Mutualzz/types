@@ -20,6 +20,7 @@ declare module "@mutualzz/types" {
         InvalidSession: 5; // Indicates that the session is invalid or expired
         Hello: 6; // Sent by the server to initiate the connection and provide the heartbeat interval
         HeartbeatAck: 7; // Acknowledgment for the heartbeat sent by the client, indicating the server received the heartbeat
+        System: 8; // System message, used to notify the client about important events or updates
     }>;
 
     export const HttpStatusCode: Readonly<{
