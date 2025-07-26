@@ -19,5 +19,10 @@ const HttpStatusCode = {
     InternalServerError: 500,
     Forbidden: 403
 };
+const GatewayEvents = {
+    Ack: "ACK",
+    Ready: "READY",
+    Resume: "RESUME"
+};
 
-export { GatewayOpcodes, HttpStatusCode };
+export { GatewayEvents, GatewayOpcodes, HttpStatusCode };

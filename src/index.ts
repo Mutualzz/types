@@ -21,6 +21,12 @@ export const HttpStatusCode = {
     Forbidden: 403,
 } as const;
 
+export const GatewayEvents = {
+    Ack: "ACK",
+    Ready: "READY",
+    Resume: "RESUME",
+} as const;
+
 export type User = {
     id: string;
     username: string;

@@ -19,6 +19,11 @@ declare const HttpStatusCode: {
     readonly InternalServerError: 500;
     readonly Forbidden: 403;
 };
+declare const GatewayEvents: {
+    readonly Ack: "ACK";
+    readonly Ready: "READY";
+    readonly Resume: "RESUME";
+};
 type User = {
     id: string;
     username: string;
@@ -31,5 +36,5 @@ type User = {
     updatedAt: Date;
 };
 
-export { GatewayOpcodes, HttpStatusCode };
+export { GatewayEvents, GatewayOpcodes, HttpStatusCode };
 export type { User };
