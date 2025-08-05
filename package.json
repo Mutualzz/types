@@ -3,8 +3,7 @@
         "url": "https://github.com/Mutualzz/types.git/issues"
     },
     "devDependencies": {
-        "@types/bun": "latest",
-        "bunchee": "^6.5.4"
+        "@types/bun": "latest"
     },
     "exports": {
         ".": {
@@ -16,7 +15,7 @@
         "dist/**",
         "dist"
     ],
-    "main": "dist/index.js",
+    "main": "./dist/index.js",
     "name": "@mutualzz/types",
     "peerDependencies": {
         "typescript": "^5.8.3"
@@ -26,11 +25,12 @@
         "url": "https://github.com/Mutualzz/types.git"
     },
     "scripts": {
-        "build": "bunchee",
+        "build": "bun run check-types && bunchee",
         "check-types": "tsc --noEmit",
         "dev": "bunchee --watch",
-        "prepublishOnly": "bun run check-types && bun run build"
+        "prepublishOnly": "bun run build"
     },
     "type": "module",
+    "types": "dist/index.d.ts",
     "version": "1.3.0"
 }
