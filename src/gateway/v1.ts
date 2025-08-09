@@ -17,6 +17,7 @@ export const GatewayDispatchEvents = {
 
 export const GatewayCloseCodes = {
     UnknownError: 1000,
+    InvalidConnection: 1008,
     SessionTimedOut: 4000,
     InvalidSession: 4001,
     NotAuthenticated: 4002,
@@ -31,6 +32,6 @@ export interface GatewayPayload {
 
 export interface GatewaySession {
     userId: string;
-    sessionId: string;
+    lastUsedAt: number;
     seq: number;
 }

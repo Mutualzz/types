@@ -9,6 +9,13 @@ export const HttpStatusCode = {
     Forbidden: 403,
 } as const;
 
+export interface RESTSession {
+    sessionId: string;
+    userId: string;
+    createdAt: number;
+    lastUsedAt: number;
+}
+
 export class HttpException extends Error {
     readonly status: number;
     readonly message: string;
