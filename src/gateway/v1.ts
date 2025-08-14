@@ -1,4 +1,4 @@
-import type { APIUser } from "api/v1";
+import type { APIUser } from "../api/v1";
 
 export const GatewayOpcodes = {
     Dispatch: 0,
