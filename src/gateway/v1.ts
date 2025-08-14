@@ -1,3 +1,5 @@
+import type { APIUser } from "api/v1";
+
 export const GatewayOpcodes = {
     Dispatch: 0,
     Heartbeat: 1,
@@ -34,4 +36,9 @@ export interface GatewaySession {
     userId: string;
     lastUsedAt: number;
     seq: number;
+}
+
+export interface GatewayReadyPayload {
+    sessionId: string;
+    user: APIUser;
 }
