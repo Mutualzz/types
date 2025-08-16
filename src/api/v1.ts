@@ -61,4 +61,10 @@ type RGBA = `rgba(${number}, ${number}, ${number}, ${number})`;
 type HSL = `hsl(${number}, ${number}%, ${number}%)`;
 type HSLA = `hsla(${number}, ${number}%, ${number}%, ${number})`;
 
-type ColorLike = Hex | RGB | RGBA | HSL | HSLA;
+type LinearGradient = `linear-gradient(${string})`;
+type RadialGradient = `radial-gradient(${string})`;
+type ConicGradient = `conic-gradient(${string})`;
+
+type Gradient = LinearGradient | RadialGradient | ConicGradient;
+
+type ColorLike = Hex | RGB | RGBA | HSL | HSLA | Gradient;
