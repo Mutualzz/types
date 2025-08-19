@@ -16,6 +16,39 @@ export interface RESTSession {
     lastUsedAt: number;
 }
 
+export const defaultAvatars = [
+    "cat",
+    "dog",
+    "dragon",
+    "fox",
+    "hyena",
+    "rabbit",
+    "raccoon",
+    "wolf",
+] as const;
+
+export type DefaultAvatar = (typeof defaultAvatars)[number];
+
+export const CDNRoutes = {
+    defaultUserAvatar(id: DefaultAvatar) {
+        return `/defaultAvatars/${id}.png` as const;
+    },
+
+    userAvatar(userId: string, userAvatar: string, format: AvatarFormat) {
+        return `/avatars/${userId}/${userAvatar}.${format}` as const;
+    },
+};
+
+export type AvatarFormat = Exclude<ImageFormat, ImageFormat.Lottie>;
+
+export enum ImageFormat {
+    JPEG = "jpeg",
+    PNG = "png",
+    WebP = "webp",
+    GIF = "gif",
+    Lottie = "json",
+}
+
 export class HttpException extends Error {
     readonly status: number;
     readonly message: string;
