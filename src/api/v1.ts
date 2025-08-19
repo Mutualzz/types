@@ -1,3 +1,5 @@
+import type { DefaultAvatar } from "../rest/v1";
+
 export type APIUserSettings = {
     currentTheme: APITheme;
 };
@@ -5,9 +7,12 @@ export type APIUserSettings = {
 export type APIUser = {
     id: string;
     username: string;
+    defaultAvatar: DefaultAvatar;
+    previousAvatars: string[];
     globalName?: string;
+    avatar?: string;
     email?: string;
-    themes?: APITheme[];
+    themes: APITheme[];
     settings: APIUserSettings;
     createdTimestamp: number;
     createdAt: Date;
