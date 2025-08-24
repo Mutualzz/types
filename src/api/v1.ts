@@ -12,6 +12,7 @@ export type APIUser = {
     globalName?: string;
     avatar?: string;
     email?: string;
+    accentColor: Hex;
     themes: APITheme[];
     settings: APIUserSettings;
     createdTimestamp: number;
