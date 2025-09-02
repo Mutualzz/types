@@ -1,4 +1,4 @@
-import type { APIUser } from "../api/v1";
+import type { APIPrivateUser } from "../api/v1";
 
 export const GatewayOpcodes = {
     Dispatch: 0,
@@ -41,5 +41,5 @@ export interface GatewaySession {
 
 export interface GatewayReadyDispatchPayload {
     sessionId: string;
-    user: APIUser;
+    user: APIPrivateUser;
 }
