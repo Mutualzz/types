@@ -15,6 +15,7 @@ export const GatewayOpcodes = {
 export const GatewayDispatchEvents = {
     Ready: "READY",
     Resume: "RESUME",
+    UserUpdate: "USER_UPDATE",
 } as const;
 
 export const GatewayCloseCodes = {
@@ -38,7 +39,7 @@ export interface GatewaySession {
     seq: number;
 }
 
-export interface GatewayReadyPayload {
+export interface GatewayReadyDispatchPayload {
     sessionId: string;
     user: APIUser;
 }
