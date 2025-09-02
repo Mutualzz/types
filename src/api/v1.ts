@@ -4,12 +4,13 @@ export type APIUserSettings = {
     currentTheme: APITheme;
 };
 
-export type APIUser = {
+export type APIPrivateUser = {
     id: string;
     username: string;
     defaultAvatar: DefaultAvatar;
     previousAvatars: string[];
     globalName?: string;
+    dateOfBirth: Date;
     avatar?: string;
     email?: string;
     accentColor: Hex;
@@ -18,6 +19,11 @@ export type APIUser = {
     createdTimestamp: number;
     createdAt: Date;
 };
+
+export type APIUser = Omit<
+    APIPrivateUser,
+    "email" | "settings" | "previousAvatars" | "dateOfBirth"
+>;
 
 export type APITheme = {
     id: string;
