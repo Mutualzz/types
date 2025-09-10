@@ -27,6 +27,8 @@ export const defaultAvatars = [
     "wolf",
 ] as const;
 
+export type Sizes = 16 | 32 | 64 | 128 | 256 | 512 | 1024;
+
 export type DefaultAvatar = (typeof defaultAvatars)[number];
 
 export const CDNRoutes = {
@@ -34,8 +36,21 @@ export const CDNRoutes = {
         return `/defaultAvatars/${id}.png` as const;
     },
 
-    userAvatar(userId: string, userAvatar: string, format: AvatarFormat) {
-        return `/avatars/${userId}/${userAvatar}.${format}` as const;
+    userAvatar(
+        userId: string,
+        hash: string,
+        format: AvatarFormat,
+        size: Sizes = 128,
+        animated = true,
+    ) {
+        const params = new URLSearchParams();
+
+        if (format) params.set("format", format);
+        if (size) params.set("size", size.toString());
+        if (animated) params.set("animated", "true");
+
+        const query = params.toString();
+        return `/avatars/${userId}/${hash}.${format}${query ? `?${query}` : ""}` as const;
     },
 };
 
