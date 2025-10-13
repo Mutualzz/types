@@ -1,4 +1,4 @@
-import type { DefaultAvatar } from "../rest/v1";
+import type { DefaultAvatar, ThemeStyle, ThemeType } from "../rest/v1";
 
 export type APIUserSettings = {
     currentTheme: APITheme;
@@ -29,8 +29,8 @@ export type APITheme = {
     id: string;
     name: string;
     description: string;
-    type: "light" | "dark";
-    mode: "normal" | "gradient";
+    type: ThemeType;
+    style: ThemeStyle;
     colors: {
         common: {
             white: ColorLike;

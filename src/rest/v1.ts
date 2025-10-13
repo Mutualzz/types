@@ -27,6 +27,9 @@ export const defaultAvatars = [
     "wolf",
 ] as const;
 
+export type ThemeType = "light" | "dark";
+export type ThemeStyle = "normal" | "gradient";
+
 export type Sizes = 16 | 32 | 64 | 128 | 256 | 512 | 1024;
 
 export type DefaultAvatar = (typeof defaultAvatars)[number];
