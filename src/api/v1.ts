@@ -1,7 +1,8 @@
-import type { DefaultAvatar, ThemeStyle, ThemeType } from "../rest/v1";
+import type { AppMode, DefaultAvatar, ThemeStyle, ThemeType } from "../rest/v1";
 
 export type APIUserSettings = {
     currentTheme: APITheme;
+    prefferedMode: AppMode;
 };
 
 export type APIPrivateUser = {

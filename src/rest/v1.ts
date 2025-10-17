@@ -29,6 +29,7 @@ export const defaultAvatars = [
 
 export type ThemeType = "light" | "dark";
 export type ThemeStyle = "normal" | "gradient";
+export type AppMode = "spaces" | "feed";
 
 export type Sizes = 16 | 32 | 64 | 128 | 256 | 512 | 1024;
 
