@@ -2,7 +2,7 @@ import type { AppMode, DefaultAvatar, ThemeStyle, ThemeType } from "../rest/v1";
 
 export type APIUserSettings = {
     currentTheme: APITheme;
-    prefferedMode: AppMode;
+    preferredMode: AppMode;
 };
 
 export type APIPrivateUser = {
