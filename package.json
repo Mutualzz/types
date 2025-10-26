@@ -3,7 +3,7 @@
         "url": "https://github.com/Mutualzz/types.git/issues"
     },
     "devDependencies": {
-        "@types/node": "^24.8.1",
+        "@types/node": "^24.9.1",
         "bunchee": "^6.6.2"
     },
     "exports": {
