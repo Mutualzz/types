@@ -30,6 +30,7 @@ export type APITheme = {
     id: string;
     name: string;
     description: string;
+    adaptive: boolean;
     type: ThemeType;
     style: ThemeStyle;
     colors: {
