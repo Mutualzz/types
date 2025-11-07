@@ -1,7 +1,7 @@
 import type { AppMode, DefaultAvatar, ThemeStyle, ThemeType } from "../rest/v1";
 
 export type APIUserSettings = {
-    currentTheme: APITheme;
+    currentTheme: string;
     preferredMode: AppMode;
 };
 
@@ -15,16 +15,29 @@ export type APIPrivateUser = {
     avatar?: string;
     email?: string;
     accentColor: Hex;
-    themes: APITheme[];
     settings: APIUserSettings;
-    createdTimestamp: number;
     createdAt: Date;
+    createdTimestamp: number;
+    updatedAt: Date;
+    updatedTimestamp: number;
 };
 
 export type APIUser = Omit<
     APIPrivateUser,
     "email" | "settings" | "previousAvatars" | "dateOfBirth"
 >;
+
+export type APISpace = {
+    id: string;
+    name: string;
+    ownerId: string;
+    description?: string;
+    icon?: string;
+    createdAt: Date;
+    createdTimestamp: number;
+    updatedAt: Date;
+    updatedTimestamp: number;
+};
 
 export type APITheme = {
     id: string;
@@ -35,29 +48,29 @@ export type APITheme = {
     style: ThemeStyle;
     colors: {
         common: {
-            white: ColorLike;
-            black: ColorLike;
+            white: Hex;
+            black: Hex;
         };
 
         // Base colors
-        primary: ColorLike;
-        neutral: ColorLike;
+        primary: Hex;
+        neutral: Hex;
         background: ColorLike;
         surface: ColorLike;
 
         // Feedback colors
-        danger: ColorLike;
-        warning: ColorLike;
-        info: ColorLike;
-        success: ColorLike;
+        danger: Hex;
+        warning: Hex;
+        info: Hex;
+        success: Hex;
     };
 
     typography: {
         colors: {
-            primary: ColorLike;
-            secondary: ColorLike;
-            accent: ColorLike;
-            muted: ColorLike;
+            primary: Hex;
+            secondary: Hex;
+            accent: Hex;
+            muted: Hex;
         };
     };
 
@@ -66,7 +79,7 @@ export type APITheme = {
     updatedAt: Date;
     updatedTimestamp: number;
 
-    createdBy?: APIUser;
+    createdBy?: string;
 };
 
 // For now
