@@ -3,6 +3,7 @@ import type { AppMode, DefaultAvatar, ThemeStyle, ThemeType } from "../rest/v1";
 export type APIUserSettings = {
     currentTheme: string;
     preferredMode: AppMode;
+    spacePositions: string[];
 };
 
 export type APIPrivateUser = {
@@ -10,16 +11,14 @@ export type APIPrivateUser = {
     username: string;
     defaultAvatar: DefaultAvatar;
     previousAvatars: string[];
-    globalName?: string;
-    dateOfBirth: Date;
-    avatar?: string;
-    email?: string;
-    accentColor: Hex;
-    settings: APIUserSettings;
-    createdAt: Date;
-    createdTimestamp: number;
-    updatedAt: Date;
-    updatedTimestamp: number;
+    email: string;
+    flags: bigint;
+    globalName?: string | null;
+    dateOfBirth: string;
+    avatar?: string | null;
+    accentColor: string;
+    created: Date;
+    updated: Date;
 };
 
 export type APIUser = Omit<
@@ -30,13 +29,38 @@ export type APIUser = Omit<
 export type APISpace = {
     id: string;
     name: string;
-    ownerId: string;
-    description?: string;
-    icon?: string;
-    createdAt: Date;
-    createdTimestamp: number;
-    updatedAt: Date;
-    updatedTimestamp: number;
+    owner: string;
+    flags: bigint;
+    description?: string | null;
+    icon?: string | null;
+    created: Date;
+    updated: Date;
+};
+
+export type APIRole = {
+    id: string;
+    name: string;
+    space: string;
+    color: string;
+    permissions: bigint;
+    position: number;
+    hoist: boolean;
+    flags: bigint;
+    mentionable: boolean;
+    created: Date;
+    updated: Date;
+};
+
+export type APISpaceMember = {
+    space: string;
+    user: string;
+    flags: bigint;
+    nickname?: string | null;
+    avatar?: string | null;
+    banner?: string | null;
+    roles: string[];
+    joined: Date;
+    updated: Date;
 };
 
 export type APITheme = {
@@ -48,51 +72,34 @@ export type APITheme = {
     style: ThemeStyle;
     colors: {
         common: {
-            white: Hex;
-            black: Hex;
+            white: string;
+            black: string;
         };
 
         // Base colors
-        primary: Hex;
-        neutral: Hex;
-        background: ColorLike;
-        surface: ColorLike;
+        primary: string;
+        neutral: string;
+        background: string;
+        surface: string;
 
         // Feedback colors
-        danger: Hex;
-        warning: Hex;
-        info: Hex;
-        success: Hex;
+        danger: string;
+        warning: string;
+        info: string;
+        success: string;
     };
 
     typography: {
         colors: {
-            primary: Hex;
-            secondary: Hex;
-            accent: Hex;
-            muted: Hex;
+            primary: string;
+            secondary: string;
+            accent: string;
+            muted: string;
         };
     };
 
-    createdAt: Date;
-    createdTimestamp: number;
-    updatedAt: Date;
-    updatedTimestamp: number;
+    created: Date;
+    updated: Date;
 
-    createdBy?: string;
+    author?: string | null;
 };
-
-// For now
-type Hex = `#${string}`;
-type RGB = `rgb(${number}, ${number}, ${number})`;
-type RGBA = `rgba(${number}, ${number}, ${number}, ${number})`;
-type HSL = `hsl(${number}, ${number}%, ${number}%)`;
-type HSLA = `hsla(${number}, ${number}%, ${number}%, ${number})`;
-
-type LinearGradient = `linear-gradient(${string})`;
-type RadialGradient = `radial-gradient(${string})`;
-type ConicGradient = `conic-gradient(${string})`;
-
-type Gradient = LinearGradient | RadialGradient | ConicGradient;
-
-type ColorLike = Hex | RGB | RGBA | HSL | HSLA | Gradient;

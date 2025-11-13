@@ -1,4 +1,9 @@
-import type { APIPrivateUser, APISpace, APITheme } from "../api/v1";
+import type {
+    APIPrivateUser,
+    APISpace,
+    APITheme,
+    APIUserSettings,
+} from "../api/v1";
 
 export const GatewayOpcodes = {
     Dispatch: 0,
@@ -16,6 +21,8 @@ export const GatewayDispatchEvents = {
     Ready: "READY",
     Resume: "RESUME",
     UserUpdate: "USER_UPDATE",
+    UserSettingsUpdate: "USER_SETTINGS_UPDATE",
+    SpaceAdded: "SPACE_ADDED",
 } as const;
 
 export const GatewayCloseCodes = {
@@ -33,6 +40,13 @@ export interface GatewayPayload {
     t?: keyof typeof GatewayDispatchEvents;
 }
 
+export interface WireGatewayPayload {
+    op: (typeof GatewayOpcodes)[keyof typeof GatewayOpcodes];
+    d?: any;
+    s?: number;
+    t?: (typeof GatewayDispatchEvents)[keyof typeof GatewayDispatchEvents];
+}
+
 export interface GatewaySession {
     userId: string;
     lastUsedAt: number;
@@ -44,4 +58,5 @@ export interface GatewayReadyDispatchPayload {
     user: APIPrivateUser;
     themes: APITheme[];
     spaces: APISpace[];
+    settings: APIUserSettings;
 }

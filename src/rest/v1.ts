@@ -56,9 +56,27 @@ export const CDNRoutes = {
         const query = params.toString();
         return `/avatars/${userId}/${hash}.${format}${query ? `?${query}` : ""}` as const;
     },
+
+    spaceIcon(
+        spaceId: string,
+        hash: string,
+        format: SpaceFormat,
+        size: Sizes = 128,
+        animated = true,
+    ) {
+        const params = new URLSearchParams();
+
+        if (format) params.set("format", format);
+        if (size) params.set("size", size.toString());
+        if (animated) params.set("animated", "true");
+
+        const query = params.toString();
+        return `/spaces/${spaceId}/icons/${hash}.${format}${query ? `?${query}` : ""}` as const;
+    },
 };
 
 export type AvatarFormat = Exclude<ImageFormat, ImageFormat.Lottie>;
+export type SpaceFormat = Exclude<ImageFormat, ImageFormat.Lottie>;
 
 export enum ImageFormat {
     JPEG = "jpeg",

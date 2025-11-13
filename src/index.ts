@@ -1,3 +1,4 @@
-export * from "./api/v1";
-export * from "./gateway/v1";
-export * from "./rest/v1";
+export * from "./api";
+export * from "./bitfield";
+export * from "./gateway";
+export * from "./rest";
