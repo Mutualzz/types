@@ -8,7 +8,8 @@
     },
     "exports": {
         ".": {
-            "import": "./dist/index.js",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs",
             "types": "./dist/index.d.ts"
         }
     },
@@ -16,7 +17,8 @@
         "dist/**",
         "dist"
     ],
-    "main": "./dist/index.js",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.mjs",
     "name": "@mutualzz/types",
     "repository": {
         "type": "git",
