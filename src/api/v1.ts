@@ -1,15 +1,29 @@
-import type { AppMode, DefaultAvatar, ThemeStyle, ThemeType } from "../rest/v1";
+import type {
+    AppMode,
+    ChannelType,
+    InviteType,
+    MessageType,
+    Snowflake,
+    ThemeStyle,
+    ThemeType,
+} from "../common";
 
 export type APIUserSettings = {
-    currentTheme: string;
+    currentTheme?: string | null;
+    currentIcon?: string | null;
     preferredMode: AppMode;
-    spacePositions: string[];
+    spacePositions: Snowflake[];
+    updatedAt: Date;
 };
 
 export type APIPrivateUser = {
-    id: string;
+    id: Snowflake;
     username: string;
-    defaultAvatar: DefaultAvatar;
+    defaultAvatar: {
+        type: number;
+        color?: string | null;
+        adapt?: boolean;
+    };
     previousAvatars: string[];
     email: string;
     flags: bigint;
@@ -17,8 +31,42 @@ export type APIPrivateUser = {
     dateOfBirth: string;
     avatar?: string | null;
     accentColor: string;
-    created: Date;
-    updated: Date;
+    createdAt: Date;
+    updatedAt: Date;
+};
+
+export type APISpacePartial = Pick<
+    APISpace,
+    "id" | "name" | "icon" | "description"
+>;
+
+export type APIMessageEmbed = {
+    title?: string;
+    description?: string;
+    url?: string;
+    color?: string;
+    timestamp?: number;
+    author?: {
+        name: string;
+        url?: string;
+        iconUrl?: string;
+    };
+    footer?: {
+        text: string;
+        iconUrl?: string;
+    };
+    spotify?: {
+        type: "track" | "album" | "artist" | "playlist";
+        id: Snowflake;
+        embedUrl: string;
+    };
+    youtube?: {
+        videoId: string;
+        embedUrl: string;
+    };
+    image?: string;
+    media?: string;
+    thumbnail?: string;
 };
 
 export type APIUser = Omit<
@@ -27,46 +75,144 @@ export type APIUser = Omit<
 >;
 
 export type APISpace = {
-    id: string;
+    id: Snowflake;
     name: string;
-    owner: string;
+    ownerId: Snowflake;
+    owner?: APIUser | null;
     flags: bigint;
     description?: string | null;
     icon?: string | null;
-    created: Date;
-    updated: Date;
+    vanityCode?: string | null;
+    members?: APISpaceMember[] | null;
+    channels?: APIChannel[] | null;
+    roles?: APIRole[] | null;
+    memberCount: number;
+    createdAt: Date;
+    updatedAt: Date;
 };
 
 export type APIRole = {
-    id: string;
+    id: Snowflake;
     name: string;
-    space: string;
+    spaceId: Snowflake;
+    space?: APISpace | null;
     color: string;
     permissions: bigint;
     position: number;
     hoist: boolean;
     flags: bigint;
     mentionable: boolean;
-    created: Date;
-    updated: Date;
+    createdAt: Date;
+    updatedAt: Date;
+};
+
+export type APIInvite = {
+    id: Snowflake;
+    type: InviteType;
+
+    code: string;
+
+    spaceId?: Snowflake | null;
+    space?: APISpace | null;
+
+    channelId?: Snowflake | null;
+    channel?: APIChannel | null;
+
+    userId?: Snowflake | null;
+    user?: APIUser | null;
+
+    inviterId: Snowflake;
+    inviter?: APIUser | null;
+
+    maxUses: number;
+    uses: number;
+
+    createdAt: Date;
+    updatedAt: Date;
+    expiresAt?: Date | null;
+
+    approximateMemberCount?: number | null;
+    approximateActiveCount?: number | null;
+};
+
+export type APIChannel = {
+    id: Snowflake;
+    type: ChannelType;
+
+    spaceId?: Snowflake | null;
+    space?: APISpace | null;
+
+    name?: string | null;
+
+    ownerId?: Snowflake | null;
+    owner?: APIUser | null;
+
+    topic?: string | null;
+    position: number;
+
+    parentId?: Snowflake | null;
+    parent?: APIChannel | null;
+
+    recipientIds?: Snowflake[];
+    recipients?: APIUser[];
+
+    messages?: APIMessage[] | null;
+
+    lastMessageId?: Snowflake | null;
+    lastMessage?: APIMessage | null;
+
+    nsfw: boolean;
+
+    flags: bigint;
+
+    createdAt: Date;
+    updatedAt: Date;
+};
+
+export type APIMessage = {
+    id: Snowflake;
+    type: MessageType;
+
+    channelId: Snowflake;
+    channel?: APIChannel | null;
+
+    spaceId?: Snowflake | null;
+    space?: APISpace | null;
+
+    content?: string | null;
+    createdAt: Date;
+
+    authorId: Snowflake;
+    author?: APIUser | null;
+
+    embeds: APIMessageEmbed[];
+    edited: boolean;
+    updatedAt?: Date;
+    nonce?: Snowflake | null;
 };
 
 export type APISpaceMember = {
-    space: string;
-    user: string;
+    spaceId: Snowflake;
+    space?: APISpace | null;
+
+    userId: Snowflake;
+    user?: APIUser | null;
+
     flags: bigint;
     nickname?: string | null;
     avatar?: string | null;
     banner?: string | null;
-    roles: string[];
-    joined: Date;
-    updated: Date;
+
+    roles?: APIRole[];
+
+    joinedAt: Date;
+    updatedAt: Date;
 };
 
 export type APITheme = {
-    id: string;
+    id: Snowflake;
     name: string;
-    description: string;
+    description?: string | null;
     adaptive: boolean;
     type: ThemeType;
     style: ThemeStyle;
@@ -98,8 +244,9 @@ export type APITheme = {
         };
     };
 
-    created: Date;
-    updated: Date;
+    createdAt: Date;
+    updatedAt: Date;
 
-    author?: string | null;
+    authorId?: Snowflake | null;
+    author?: APIUser | null;
 };

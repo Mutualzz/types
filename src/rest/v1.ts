@@ -1,3 +1,5 @@
+import type { Snowflake } from "../common.ts";
+
 export const HttpStatusCode = {
     NotFound: 404,
     Created: 201,
@@ -7,6 +9,8 @@ export const HttpStatusCode = {
     Unauthorized: 401,
     InternalServerError: 500,
     Forbidden: 403,
+    RateLimit: 429,
+    NoContent: 204,
 } as const;
 
 export interface RESTSession {
@@ -16,32 +20,27 @@ export interface RESTSession {
     lastUsedAt: number;
 }
 
-export const defaultAvatars = [
-    "cat",
-    "dog",
-    "dragon",
-    "fox",
-    "hyena",
-    "rabbit",
-    "raccoon",
-    "wolf",
-] as const;
-
-export type ThemeType = "light" | "dark";
-export type ThemeStyle = "normal" | "gradient";
-export type AppMode = "spaces" | "feed";
-
 export type Sizes = 16 | 32 | 64 | 128 | 256 | 512 | 1024;
 
-export type DefaultAvatar = (typeof defaultAvatars)[number];
-
 export const CDNRoutes = {
-    defaultUserAvatar(id: DefaultAvatar) {
-        return `/defaultAvatars/${id}.png` as const;
+    defaultUserAvatar(
+        id: number | string,
+        version: "dark" | "light" = "light",
+        size: Sizes = 128,
+        format: AvatarFormat = ImageFormat.WebP,
+    ) {
+        const params = new URLSearchParams();
+
+        if (format) params.set("format", format);
+        if (size) params.set("size", size.toString());
+        if (version) params.set("version", version);
+
+        const query = params.toString();
+        return `/defaultAvatars/${id}.png${query ? `?${query}` : ""}` as const;
     },
 
     userAvatar(
-        userId: string,
+        userId: Snowflake,
         hash: string,
         format: AvatarFormat,
         size: Sizes = 128,
@@ -58,7 +57,7 @@ export const CDNRoutes = {
     },
 
     spaceIcon(
-        spaceId: string,
+        spaceId: Snowflake,
         hash: string,
         format: SpaceFormat,
         size: Sizes = 128,

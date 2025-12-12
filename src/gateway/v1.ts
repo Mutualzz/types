@@ -3,7 +3,7 @@ import type {
     APISpace,
     APITheme,
     APIUserSettings,
-} from "../api/v1";
+} from "../api";
 
 export const GatewayOpcodes = {
     Dispatch: 0,
@@ -15,6 +15,7 @@ export const GatewayOpcodes = {
     Hello: 6,
     HeartbeatAck: 7,
     System: 8,
+    LazyRequest: 9,
 } as const;
 
 export const GatewayDispatchEvents = {
@@ -22,8 +23,27 @@ export const GatewayDispatchEvents = {
     Resume: "RESUME",
     UserUpdate: "USER_UPDATE",
     UserSettingsUpdate: "USER_SETTINGS_UPDATE",
-    SpaceAdded: "SPACE_ADDED",
+    SpaceCreate: "SPACE_CREATE",
+    SpaceDelete: "SPACE_DELETE",
+    SpaceUpdate: "SPACE_UPDATE",
+    SpaceMemberAdd: "SPACE_MEMBER_ADD",
+    SpaceMemberRemove: "SPACE_MEMBER_REMOVE",
+    SpaceMemberUpdate: "SPACE_MEMBER_UPDATE",
+    SpaceMemberListUpdate: "SPACE_MEMBER_LIST_UPDATE",
+    ChannelCreate: "CHANNEL_CREATE",
+    ChannelUpdate: "CHANNEL_UPDATE",
+    BulkChannelUpdate: "BULK_CHANNEL_UPDATE",
+    BulkChannelDelete: "BULK_CHANNEL_DELETE",
+    ChannelDelete: "CHANNEL_DELETE",
+    MessageCreate: "MESSAGE_CREATE",
+    MessageDelete: "MESSAGE_DELETE",
+    MessageUpdate: "MESSAGE_UPDATE",
+    InviteCreate: "INVITE_CREATE",
+    InviteUpdate: "INVITE_UPDATE",
+    InviteDelete: "INVITE_DELETE",
 } as const;
+
+export type EVENT = keyof typeof GatewayDispatchEvents;
 
 export const GatewayCloseCodes = {
     UnknownError: 1000,
@@ -31,6 +51,7 @@ export const GatewayCloseCodes = {
     SessionTimedOut: 4000,
     InvalidSession: 4001,
     NotAuthenticated: 4002,
+    RateLimit: 4008,
 };
 
 export interface GatewayPayload {
@@ -53,10 +74,18 @@ export interface GatewaySession {
     seq: number;
 }
 
-export interface GatewayReadyDispatchPayload {
+export interface BaseEvent<T extends EVENT = EVENT, D = any> {
+    space_id?: string | null;
+    user_id?: string | null;
+    channel_id?: string | null;
+    event: T;
+    data: D;
+}
+
+export type GatewayReadyPayload = {
     sessionId: string;
     user: APIPrivateUser;
     themes: APITheme[];
     spaces: APISpace[];
     settings: APIUserSettings;
-}
+};
