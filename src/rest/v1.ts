@@ -1,4 +1,4 @@
-import type { Snowflake } from "../common.ts";
+import type { Snowflake } from "../common";
 
 export const HttpStatusCode = {
     NotFound: 404,
