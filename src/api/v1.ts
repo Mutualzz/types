@@ -8,6 +8,46 @@ import type {
     ThemeType,
 } from "../common";
 
+// Theme types (we shouldn't export these individually, since we already do it in ui-core)
+type LinearGradient = `linear-gradient(${string})`;
+type RadialGradient = `radial-gradient(${string})`;
+type ConicGradient = `conic-gradient(${string})`;
+
+type Gradient = LinearGradient | RadialGradient | ConicGradient;
+
+type Hex = `#${string}`;
+type RGB = `rgb(${number}, ${number}, ${number})`;
+type RGBA = `rgba(${number}, ${number}, ${number}, ${number})`;
+type HSL = `hsl(${number}, ${number}%, ${number}%)`;
+type HSLA = `hsla(${number}, ${number}%, ${number}%, ${number})`;
+type HSV = `hsv(${number}, ${number}%, ${number}%)`;
+type HSVA = `hsva(${number}, ${number}%, ${number}%, ${number})`;
+
+type ColorLike = Hex | RGB | RGBA | HSL | HSLA | HSV | HSVA | Gradient;
+
+type TypographyDisplayKey =
+    | "display-xs"
+    | "display-sm"
+    | "display-md"
+    | "display-lg";
+type TypographyHeadingKey = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+type TypographyTitleKey = "title-sm" | "title-md" | "title-lg";
+type TypographyBodyKey = "body-xs" | "body-sm" | "body-md" | "body-lg";
+
+type TypographyLevel =
+    | TypographyBodyKey
+    | TypographyTitleKey
+    | TypographyHeadingKey
+    | TypographyDisplayKey;
+
+interface TypographyLevelObj {
+    fontSize: number;
+    lineHeight: string | number;
+    fontWeight: string | number;
+    letterSpacing: string | number;
+}
+
+// API Types
 export type APIUserSettings = {
     currentTheme?: string | null;
     currentIcon?: string | null;
@@ -218,30 +258,32 @@ export type APITheme = {
     style: ThemeStyle;
     colors: {
         common: {
-            white: string;
-            black: string;
+            white: ColorLike;
+            black: ColorLike;
         };
 
         // Base colors
-        primary: string;
-        neutral: string;
-        background: string;
-        surface: string;
+        primary: ColorLike;
+        neutral: ColorLike;
+        background: ColorLike;
+        surface: ColorLike;
 
         // Feedback colors
-        danger: string;
-        warning: string;
-        info: string;
-        success: string;
+        danger: ColorLike;
+        warning: ColorLike;
+        info: ColorLike;
+        success: ColorLike;
     };
 
     typography: {
+        fontFamily: string;
         colors: {
-            primary: string;
-            secondary: string;
-            accent: string;
-            muted: string;
+            primary: ColorLike;
+            secondary: ColorLike;
+            accent: ColorLike;
+            muted: ColorLike;
         };
+        levels: Record<TypographyLevel, TypographyLevelObj>;
     };
 
     createdAt: Date;
