@@ -20,6 +20,6 @@ export enum InviteType {
 
 export type ThemeType = "light" | "dark";
 export type ThemeStyle = "normal" | "gradient";
-export type AppMode = "spaces" | "feed";
+export type AppMode = "spaces" | "feed" | "@me";
 
 export type Snowflake = string;

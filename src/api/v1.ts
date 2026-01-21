@@ -286,8 +286,8 @@ export type APITheme = {
         levels: Record<TypographyLevel, TypographyLevelObj>;
     };
 
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 
     authorId?: Snowflake | null;
     author?: APIUser | null;
