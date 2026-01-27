@@ -52,6 +52,7 @@ export type APIUserSettings = {
     currentTheme?: string | null;
     currentIcon?: string | null;
     preferredMode: AppMode;
+    preferEmbossed: boolean;
     spacePositions: Snowflake[];
     updatedAt: Date;
 };
