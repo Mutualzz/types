@@ -108,6 +108,7 @@ export type APIMessageEmbed = {
     image?: string;
     media?: string;
     thumbnail?: string;
+    spoiler?: boolean;
 };
 
 export type APIUser = Omit<
