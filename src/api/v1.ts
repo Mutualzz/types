@@ -105,6 +105,10 @@ export type APIMessageEmbed = {
         videoId: string;
         embedUrl: string;
     };
+    apple?: {
+        type: "album" | "playlist" | "song";
+        embedUrl: string;
+    };
     image?: string;
     media?: string;
     thumbnail?: string;
