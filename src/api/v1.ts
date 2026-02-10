@@ -106,7 +106,8 @@ export type APIMessageEmbed = {
         embedUrl: string;
     };
     apple?: {
-        type: "album" | "playlist" | "song";
+        id: Snowflake;
+        type: "album" | "playlist" | "song" | "artist";
         embedUrl: string;
     };
     image?: string;
