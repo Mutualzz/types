@@ -5,7 +5,7 @@ export const userFlags = {
     System: 1n << 2n,
     Disabled: 1n << 3n,
     Deleted: 1n << 4n,
-    Creator: 1n << 5n,
+    Founder: 1n << 5n,
     Tester: 1n << 6n,
     // 7–15 reserved for future identitys
 
@@ -18,9 +18,9 @@ export const userFlags = {
 
     // Cosmetic
     EarlySupporter: 1n << 40n,
-    Founder: 1n << 41n,
-    BugHunter: 1n << 42n,
-    CommunityHelper: 1n << 43n,
+
+    BugHunter: 1n << 41n,
+    CommunityHelper: 1n << 42n,
     // 44–59 reserved for cosmetic
 
     // Verification
