@@ -133,7 +133,22 @@ export type APISpace = {
     members?: APISpaceMember[] | null;
     channels?: APIChannel[] | null;
     roles?: APIRole[] | null;
+    everyoneRoleId: Snowflake;
     memberCount: number;
+    createdAt: Date;
+    updatedAt: Date;
+};
+
+export type APIChannelPermissionOverwrite = {
+    channelId: Snowflake;
+    spaceId: Snowflake;
+
+    roleId?: Snowflake | null;
+    userId?: Snowflake | null;
+
+    allow: bigint;
+    deny: bigint;
+
     createdAt: Date;
     updatedAt: Date;
 };

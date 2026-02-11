@@ -90,4 +90,11 @@ export class BitField<
     ) {
         return new BitField<T, K>(flags, BigInt(s));
     }
+
+    static fromBits<T extends Record<string, bigint>, K extends keyof T>(
+        flags: Readonly<T>,
+        bits: bigint,
+    ) {
+        return new BitField<T, K>(flags, bits);
+    }
 }
