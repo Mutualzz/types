@@ -121,6 +121,20 @@ export type APIUser = Omit<
     "email" | "settings" | "previousAvatars" | "dateOfBirth"
 >;
 
+export type APIChannelPermissionOverwrite = {
+    channelId: Snowflake;
+    spaceId: Snowflake;
+
+    roleId?: Snowflake | null;
+    userId?: Snowflake | null;
+
+    allow: bigint;
+    deny: bigint;
+
+    createdAt: Date;
+    updatedAt: Date;
+};
+
 export type APISpace = {
     id: Snowflake;
     name: string;
@@ -139,20 +153,6 @@ export type APISpace = {
     updatedAt: Date;
 };
 
-export type APIChannelPermissionOverwrite = {
-    channelId: Snowflake;
-    spaceId: Snowflake;
-
-    roleId?: Snowflake | null;
-    userId?: Snowflake | null;
-
-    allow: bigint;
-    deny: bigint;
-
-    createdAt: Date;
-    updatedAt: Date;
-};
-
 export type APIRole = {
     id: Snowflake;
     name: string;
@@ -166,6 +166,13 @@ export type APIRole = {
     mentionable: boolean;
     createdAt: Date;
     updatedAt: Date;
+};
+
+export type APIMemberRole = {
+    spaceId: Snowflake;
+    userId: Snowflake;
+    roleId: Snowflake;
+    role?: APIRole | null;
 };
 
 export type APIInvite = {
@@ -225,6 +232,8 @@ export type APIChannel = {
 
     nsfw: boolean;
 
+    overwrites?: APIChannelPermissionOverwrite[] | null;
+
     flags: bigint;
 
     createdAt: Date;
@@ -247,6 +256,9 @@ export type APIMessage = {
     authorId: Snowflake;
     author?: APIUser | null;
 
+    memberId?: Snowflake | null;
+    member?: APISpaceMember | null;
+
     embeds: APIMessageEmbed[];
     edited: boolean;
     updatedAt?: Date;
@@ -265,7 +277,7 @@ export type APISpaceMember = {
     avatar?: string | null;
     banner?: string | null;
 
-    roles?: APIRole[];
+    roles?: APIMemberRole[];
 
     joinedAt: Date;
     updatedAt: Date;

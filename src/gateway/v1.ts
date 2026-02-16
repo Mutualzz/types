@@ -21,26 +21,47 @@ export const GatewayOpcodes = {
 export const GatewayDispatchEvents = {
     Ready: "READY",
     Resume: "RESUME",
+
+    // Users
     UserUpdate: "USER_UPDATE",
     UserSettingsUpdate: "USER_SETTINGS_UPDATE",
+
+    // Spaces
     SpaceCreate: "SPACE_CREATE",
     SpaceDelete: "SPACE_DELETE",
     SpaceUpdate: "SPACE_UPDATE",
+
+    // Members
     SpaceMemberAdd: "SPACE_MEMBER_ADD",
     SpaceMemberRemove: "SPACE_MEMBER_REMOVE",
     SpaceMemberUpdate: "SPACE_MEMBER_UPDATE",
     SpaceMemberListUpdate: "SPACE_MEMBER_LIST_UPDATE",
+
+    // Member Roles
+    SpaceMemberRoleAdd: "SPACE_MEMBER_ROLE_ADD",
+    SpaceMemberRoleRemove: "SPACE_MEMBER_ROLE_REMOVE",
+
+    // Channels
     ChannelCreate: "CHANNEL_CREATE",
     ChannelUpdate: "CHANNEL_UPDATE",
     BulkChannelUpdate: "BULK_CHANNEL_UPDATE",
     BulkChannelDelete: "BULK_CHANNEL_DELETE",
     ChannelDelete: "CHANNEL_DELETE",
+
+    // Messages
     MessageCreate: "MESSAGE_CREATE",
     MessageDelete: "MESSAGE_DELETE",
     MessageUpdate: "MESSAGE_UPDATE",
+
+    // Invites
     InviteCreate: "INVITE_CREATE",
     InviteUpdate: "INVITE_UPDATE",
     InviteDelete: "INVITE_DELETE",
+
+    // Roles
+    RoleCreate: "ROLE_CREATE",
+    RoleUpdate: "ROLE_UPDATE",
+    RoleDelete: "ROLE_DELETE",
 } as const;
 
 export type EVENT = keyof typeof GatewayDispatchEvents;
