@@ -1,9 +1,11 @@
 import type {
     APIPrivateUser,
     APISpace,
+    APISpaceMember,
     APITheme,
     APIUserSettings,
 } from "../api";
+import type { PresencePayload } from "../presence";
 
 export const GatewayOpcodes = {
     Dispatch: 0,
@@ -16,6 +18,7 @@ export const GatewayOpcodes = {
     HeartbeatAck: 7,
     System: 8,
     LazyRequest: 9,
+    PresenceUpdate: 10,
 } as const;
 
 export const GatewayDispatchEvents = {
@@ -50,8 +53,9 @@ export const GatewayDispatchEvents = {
 
     // Messages
     MessageCreate: "MESSAGE_CREATE",
-    MessageDelete: "MESSAGE_DELETE",
     MessageUpdate: "MESSAGE_UPDATE",
+    MessageDelete: "MESSAGE_DELETE",
+    MessageDeleteBulk: "MESSAGE_DELETE_BULK",
 
     // Invites
     InviteCreate: "INVITE_CREATE",
@@ -62,6 +66,9 @@ export const GatewayDispatchEvents = {
     RoleCreate: "ROLE_CREATE",
     RoleUpdate: "ROLE_UPDATE",
     RoleDelete: "ROLE_DELETE",
+
+    // Presence
+    PresenceUpdate: "PRESENCE_UPDATE",
 } as const;
 
 export type EVENT = keyof typeof GatewayDispatchEvents;
@@ -110,3 +117,7 @@ export type GatewayReadyPayload = {
     spaces: APISpace[];
     settings: APIUserSettings;
 };
+
+export interface GatewaySpaceMember extends APISpaceMember {
+    presence?: PresencePayload;
+}
