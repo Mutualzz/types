@@ -22,3 +22,9 @@ export type PresencePayload = {
     device?: "desktop" | "mobile" | "web";
     updatedAt: number;
 };
+
+export interface PresenceSchedule {
+    status: PresenceStatus;
+    revertTo: PresenceStatus;
+    until: number; // ms epoch
+}

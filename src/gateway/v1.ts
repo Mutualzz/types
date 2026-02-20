@@ -1,10 +1,4 @@
-import type {
-    APIPrivateUser,
-    APISpace,
-    APISpaceMember,
-    APITheme,
-    APIUserSettings,
-} from "../api";
+import type { APIPrivateUser, APISpace, APISpaceMember, APITheme, APIUserSettings, } from "../api";
 import type { PresencePayload } from "../presence";
 
 export const GatewayOpcodes = {
@@ -19,6 +13,8 @@ export const GatewayOpcodes = {
     System: 8,
     LazyRequest: 9,
     PresenceUpdate: 10,
+    PresenceScheduleSet: 11,
+    PresenceScheduleClear: 12,
 } as const;
 
 export const GatewayDispatchEvents = {
@@ -69,6 +65,7 @@ export const GatewayDispatchEvents = {
 
     // Presence
     PresenceUpdate: "PRESENCE_UPDATE",
+    PresenceScheduleUpdate: "PRESENCE_SCHEDULE_UPDATE",
 } as const;
 
 export type EVENT = keyof typeof GatewayDispatchEvents;
