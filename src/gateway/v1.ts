@@ -15,6 +15,7 @@ export const GatewayOpcodes = {
     PresenceUpdate: 10,
     PresenceScheduleSet: 11,
     PresenceScheduleClear: 12,
+    VoiceStateUpdate: 13,
 } as const;
 
 export const GatewayDispatchEvents = {
@@ -66,6 +67,11 @@ export const GatewayDispatchEvents = {
     // Presence
     PresenceUpdate: "PRESENCE_UPDATE",
     PresenceScheduleUpdate: "PRESENCE_SCHEDULE_UPDATE",
+
+    // Voice
+    VoiceServerUpdate: "VOICE_SERVER_UPDATE",
+    VoiceStateSync: "VOICE_STATE_SYNC",
+    VoiceStateUpdate: "VOICE_STATE_UPDATE",
 } as const;
 
 export type EVENT = keyof typeof GatewayDispatchEvents;
@@ -77,6 +83,7 @@ export const GatewayCloseCodes = {
     InvalidSession: 4001,
     NotAuthenticated: 4002,
     RateLimit: 4008,
+    MissingPermissions: 4009,
 };
 
 export interface GatewayPayload {

@@ -238,6 +238,8 @@ export type APIChannel = {
 
     createdAt: Date;
     updatedAt: Date;
+
+    icon?: string | null;
 };
 
 export type APIMessage = {
