@@ -2,8 +2,8 @@ import type { Snowflake } from "../common.ts";
 
 export interface VoiceState {
     userId: Snowflake;
-    spaceId: Snowflake;
-    channelId: Snowflake | null;
+    spaceId?: Snowflake | null;
+    channelId?: Snowflake | null;
 
     selfMute: boolean;
     selfDeaf: boolean;
