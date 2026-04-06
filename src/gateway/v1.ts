@@ -1,4 +1,11 @@
-import type { APIPrivateUser, APISpace, APISpaceMember, APITheme, APIUserSettings, } from "../api";
+import type {
+    APIExpression,
+    APIPrivateUser,
+    APISpace,
+    APISpaceMember,
+    APITheme,
+    APIUserSettings,
+} from "../api";
 import type { PresencePayload } from "../presence";
 
 export const GatewayOpcodes = {
@@ -120,6 +127,7 @@ export type GatewayReadyPayload = {
     themes: APITheme[];
     spaces: APISpace[];
     settings: APIUserSettings;
+    expressions: APIExpression[];
 };
 
 export interface GatewaySpaceMember extends APISpaceMember {

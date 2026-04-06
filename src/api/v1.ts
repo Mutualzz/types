@@ -204,6 +204,18 @@ export type APIInvite = {
     approximateActiveCount?: number | null;
 };
 
+export type APIExpression = {
+    id: Snowflake;
+    type: number;
+    name: string;
+    assetHash: string;
+    authorId: Snowflake;
+    spaceId?: Snowflake | null;
+    animated: boolean;
+    flags: bigint;
+    createdAt: Date;
+};
+
 export type APIChannel = {
     id: Snowflake;
     type: ChannelType;

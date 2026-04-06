@@ -6,6 +6,11 @@ export enum ChannelType {
     GroupDM = 4,
 }
 
+export enum ExpressionType {
+    Emoji = 0,
+    Sticker = 1,
+}
+
 export enum MessageType {
     Default = 0,
     Reply = 1,
