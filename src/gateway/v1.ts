@@ -79,6 +79,11 @@ export const GatewayDispatchEvents = {
     VoiceServerUpdate: "VOICE_SERVER_UPDATE",
     VoiceStateSync: "VOICE_STATE_SYNC",
     VoiceStateUpdate: "VOICE_STATE_UPDATE",
+
+    // Expressions
+    ExpressionCreate: "EXPRESSION_CREATE",
+    ExpressionUpdate: "EXPRESSION_UPDATE",
+    ExpressionDelete: "EXPRESSION_DELETE",
 } as const;
 
 export type EVENT = keyof typeof GatewayDispatchEvents;
