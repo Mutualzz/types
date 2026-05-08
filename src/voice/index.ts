@@ -23,7 +23,8 @@ export const VoiceOpcodes = {
     VoiceProduce: 4,
     VoiceConsume: 5,
     VoiceResumeConsumer: 6,
-    VoiceLeave: 7,
+    VoiceCloseProducer: 7,
+    VoiceLeave: 8,
 } as const;
 
 export type VoiceOpcode = (typeof VoiceOpcodes)[keyof typeof VoiceOpcodes];
