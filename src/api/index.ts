@@ -54,6 +54,10 @@ export type APIUserSettings = {
     preferredMode: AppMode;
     preferEmbossed: boolean;
     spacePositions: Snowflake[];
+
+    preferredSelfMute: boolean;
+    preferredSelfDeaf: boolean;
+
     updatedAt: Date;
 };
 
