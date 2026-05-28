@@ -1,11 +1,12 @@
-import type {
-    AppMode,
-    ChannelType,
-    InviteType,
-    MessageType,
-    Snowflake,
-    ThemeStyle,
-    ThemeType,
+import {
+    type AppMode,
+    type ChannelType,
+    type InviteType,
+    type MessageType,
+    RelationshipType,
+    type Snowflake,
+    type ThemeStyle,
+    type ThemeType,
 } from "../common";
 
 // Theme types (we shouldn't export these individually, since we already do it in ui-core)
@@ -139,6 +140,16 @@ export type APIChannelPermissionOverwrite = {
     updatedAt: Date;
 };
 
+export type APISpaceBan = {
+    spaceId: Snowflake;
+    userId: Snowflake;
+    user?: APIUser;
+    bannedById: Snowflake;
+    bannedBy?: APIUser;
+    reason: string;
+    createdAt: Date;
+};
+
 export type APISpace = {
     id: Snowflake;
     name: string;
@@ -238,12 +249,11 @@ export type APIChannel = {
     parentId?: Snowflake | null;
     parent?: APIChannel | null;
 
-    recipientIds?: Snowflake[];
-    recipients?: APIUser[];
+    recipientIds?: Snowflake[] | null;
+    recipients?: APIUser[] | null;
 
     messages?: APIMessage[] | null;
 
-    lastMessageId?: Snowflake | null;
     lastMessage?: APIMessage | null;
 
     nsfw: boolean;
@@ -256,6 +266,20 @@ export type APIChannel = {
     updatedAt: Date;
 
     icon?: string | null;
+};
+
+export type APIRelationship = {
+    id: Snowflake;
+    userId: Snowflake;
+    otherUserId: Snowflake;
+    type: RelationshipType;
+    createdAt: Date;
+    updatedAt: Date;
+};
+
+export type APIRelationshipWithUser = APIRelationship & {
+    user?: APIUser | null;
+    otherUser?: APIUser | null;
 };
 
 export type APIMessage = {
@@ -279,6 +303,7 @@ export type APIMessage = {
 
     embeds: APIMessageEmbed[];
     edited: boolean;
+    flags: bigint;
     updatedAt?: Date;
     nonce?: Snowflake | null;
 };

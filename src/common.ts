@@ -23,6 +23,13 @@ export enum InviteType {
     Friend = 1,
 }
 
+export enum RelationshipType {
+    Friend = 0,
+    Blocked = 1,
+    IncomingRequest = 2,
+    OutgoingRequest = 3,
+}
+
 export type ThemeType = "light" | "dark";
 export type ThemeStyle = "normal" | "gradient";
 export type AppMode = "spaces" | "feed" | "@me";

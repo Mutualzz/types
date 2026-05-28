@@ -1,6 +1,8 @@
 import type {
+    APIChannel,
     APIExpression,
     APIPrivateUser,
+    APIRelationship,
     APISpace,
     APISpaceMember,
     APITheme,
@@ -84,6 +86,15 @@ export const GatewayDispatchEvents = {
     ExpressionCreate: "EXPRESSION_CREATE",
     ExpressionUpdate: "EXPRESSION_UPDATE",
     ExpressionDelete: "EXPRESSION_DELETE",
+
+    // Relationships
+    RelationshipCreate: "RELATIONSHIP_CREATE",
+    RelationshipUpdate: "RELATIONSHIP_UPDATE",
+    RelationshipDelete: "RELATIONSHIP_DELETE",
+
+    // Space Bans
+    SpaceBanAdd: "SPACE_BAN_ADD",
+    SpaceBanRemove: "SPACE_BAN_REMOVE",
 } as const;
 
 export type EVENT = keyof typeof GatewayDispatchEvents;
@@ -132,6 +143,8 @@ export type GatewayReadyPayload = {
     themes: APITheme[];
     spaces: APISpace[];
     settings: APIUserSettings;
+    channels: APIChannel[];
+    relationships: APIRelationship[];
     expressions: APIExpression[];
 };
 
