@@ -98,6 +98,9 @@ export const GatewayDispatchEvents = {
     // Space Bans
     SpaceBanAdd: "SPACE_BAN_ADD",
     SpaceBanRemove: "SPACE_BAN_REMOVE",
+
+    // Typing
+    TypingStart: "TYPING_START",
 } as const;
 
 export type EVENT = keyof typeof GatewayDispatchEvents;
