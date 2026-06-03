@@ -2,12 +2,15 @@ import {
     type AppMode,
     type ChannelType,
     type InviteType,
+    type MentionType,
     type MessageType,
+    ReadStateType,
     RelationshipType,
     type Snowflake,
     type ThemeStyle,
     type ThemeType,
 } from "../common";
+import type { PresencePayload } from "../presence";
 
 // Theme types (we shouldn't export these individually, since we already do it in ui-core)
 type LinearGradient = `linear-gradient(${string})`;
@@ -79,6 +82,19 @@ export type APIPrivateUser = {
     accentColor: string;
     createdAt: Date;
     updatedAt: Date;
+    presence?: PresencePayload;
+};
+
+export type APIReadState = {
+    id: string;
+    lastMessageId: string | null;
+    lastAckedId: string | null;
+    notificationsCursor: string | null;
+    mentionCount: number;
+    badgeCount: number;
+    lastPinTimestamp: Date | null;
+    flags: bigint;
+    type: ReadStateType;
 };
 
 export type APISpacePartial = Pick<
@@ -174,7 +190,8 @@ export type APIRole = {
     spaceId: Snowflake;
     space?: APISpace | null;
     color: string;
-    permissions: bigint;
+    allow: bigint;
+    deny: bigint;
     position: number;
     hoist: boolean;
     flags: bigint;
@@ -282,6 +299,11 @@ export type APIRelationshipWithUser = APIRelationship & {
     otherUser?: APIUser | null;
 };
 
+export type APIMessageMention = {
+    type: MentionType;
+    id: Snowflake;
+};
+
 export type APIMessage = {
     id: Snowflake;
     type: MessageType;
@@ -306,6 +328,7 @@ export type APIMessage = {
     flags: bigint;
     updatedAt?: Date;
     nonce?: Snowflake | null;
+    mentions?: APIMessageMention[];
 };
 
 export type APISpaceMember = {

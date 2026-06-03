@@ -2,6 +2,7 @@ import type {
     APIChannel,
     APIExpression,
     APIPrivateUser,
+    APIReadState,
     APIRelationship,
     APISpace,
     APISpaceMember,
@@ -58,6 +59,8 @@ export const GatewayDispatchEvents = {
     ChannelDelete: "CHANNEL_DELETE",
 
     // Messages
+    MessageAck: "MESSAGE_ACK",
+    MessageAckBulk: "MESSAGE_ACK_BULK",
     MessageCreate: "MESSAGE_CREATE",
     MessageUpdate: "MESSAGE_UPDATE",
     MessageDelete: "MESSAGE_DELETE",
@@ -146,6 +149,7 @@ export type GatewayReadyPayload = {
     channels: APIChannel[];
     relationships: APIRelationship[];
     expressions: APIExpression[];
+    readStates: APIReadState[];
 };
 
 export interface GatewaySpaceMember extends APISpaceMember {

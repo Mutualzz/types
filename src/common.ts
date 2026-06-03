@@ -11,6 +11,12 @@ export enum ExpressionType {
     Sticker = 1,
 }
 
+export enum ReadStateType {
+    Messages = 0,
+    Acks = 1,
+    NotificationCenter = 2,
+}
+
 export enum MessageType {
     Default = 0,
     Reply = 1,
@@ -29,6 +35,8 @@ export enum RelationshipType {
     IncomingRequest = 2,
     OutgoingRequest = 3,
 }
+
+export type MentionType = "user" | "role" | "everyone" | "here";
 
 export type ThemeType = "light" | "dark";
 export type ThemeStyle = "normal" | "gradient";
