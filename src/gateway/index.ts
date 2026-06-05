@@ -153,6 +153,7 @@ export type GatewayReadyPayload = {
     relationships: APIRelationship[];
     expressions: APIExpression[];
     readStates: APIReadState[];
+    mergedPresences: Record<string, PresencePayload>;
 };
 
 export interface GatewaySpaceMember extends APISpaceMember {

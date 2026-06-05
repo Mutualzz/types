@@ -1,6 +1,7 @@
 import {
     type AppMode,
     type ChannelType,
+    type EmbedType,
     type InviteType,
     type MentionType,
     type MessageType,
@@ -61,6 +62,9 @@ export type APIUserSettings = {
 
     preferredSelfMute: boolean;
     preferredSelfDeaf: boolean;
+
+    favoriteEmojis: string[];
+    favoriteGifs: string[];
 
     updatedAt: Date;
 };
@@ -135,6 +139,7 @@ export type APIMessageEmbed = {
     media?: string;
     thumbnail?: string;
     spoiler?: boolean;
+    type: EmbedType;
 };
 
 export type APIUser = Omit<
