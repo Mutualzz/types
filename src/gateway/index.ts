@@ -49,6 +49,7 @@ export const GatewayDispatchEvents = {
 
   // Member Roles
   SpaceMemberRoleAdd: "SPACE_MEMBER_ROLE_ADD",
+  SpaceMemberRoleAddBulk: "SPACE_MEMBER_ROLE_ADD_BULK",
   SpaceMemberRoleRemove: "SPACE_MEMBER_ROLE_REMOVE",
 
   // Channels
