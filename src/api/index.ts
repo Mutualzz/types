@@ -135,9 +135,9 @@ export type APIMessageEmbed = {
         type: "album" | "playlist" | "song" | "artist";
         embedUrl: string;
     };
-    image?: string;
-    media?: string;
-    thumbnail?: string;
+    image?: string | null;
+    media?: string | null;
+    thumbnail?: string | null;
     spoiler?: boolean;
     type: EmbedType;
 };
