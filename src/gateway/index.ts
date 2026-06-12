@@ -55,8 +55,8 @@ export const GatewayDispatchEvents = {
   // Channels
   ChannelCreate: "CHANNEL_CREATE",
   ChannelUpdate: "CHANNEL_UPDATE",
-  BulkChannelUpdate: "BULK_CHANNEL_UPDATE",
-  BulkChannelDelete: "BULK_CHANNEL_DELETE",
+  ChannelUpdateBulk: "CHANNEL_UPDATE_BULK",
+  ChannelDeleteBulk: "CHANNEL_DELETE_BULK",
   ChannelDelete: "CHANNEL_DELETE",
 
   // Messages
@@ -102,6 +102,10 @@ export const GatewayDispatchEvents = {
 
   // Typing
   TypingStart: "TYPING_START",
+
+  // Group DM
+  ChannelRecipientAdd: "CHANNEL_RECIPIENT_ADD",
+  ChannelRecipientRemove: "CHANNEL_RECIPIENT_REMOVE",
 } as const;
 
 export type EVENT = keyof typeof GatewayDispatchEvents;

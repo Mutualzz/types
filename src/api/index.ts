@@ -1,17 +1,17 @@
 import {
-    type AppMode,
-    type ChannelType,
-    type EmbedType,
-    type InviteType,
-    type MentionType,
-    type MessageType,
-    ReadStateType,
-    RelationshipType,
-    type Snowflake,
-    type ThemeStyle,
-    type ThemeType,
+  type AppMode,
+  type ChannelType,
+  type EmbedType,
+  type InviteType,
+  type MentionType,
+  type MessageType,
+  ReadStateType,
+  RelationshipType,
+  type Snowflake,
+  type ThemeStyle,
+  type ThemeType,
 } from "../common";
-import type { PresencePayload } from "../presence";
+import type { PresencePayload } from "../presence"; // Theme types (we shouldn't export these individually, since we already do it in ui-core)
 
 // Theme types (we shouldn't export these individually, since we already do it in ui-core)
 type LinearGradient = `linear-gradient(${string})`;
@@ -31,369 +31,370 @@ type HSVA = `hsva(${number}, ${number}%, ${number}%, ${number})`;
 type ColorLike = Hex | RGB | RGBA | HSL | HSLA | HSV | HSVA | Gradient;
 
 type TypographyDisplayKey =
-    | "display-xs"
-    | "display-sm"
-    | "display-md"
-    | "display-lg";
+  | "display-xs"
+  | "display-sm"
+  | "display-md"
+  | "display-lg";
 type TypographyHeadingKey = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 type TypographyTitleKey = "title-sm" | "title-md" | "title-lg";
 type TypographyBodyKey = "body-xs" | "body-sm" | "body-md" | "body-lg";
 
 type TypographyLevel =
-    | TypographyBodyKey
-    | TypographyTitleKey
-    | TypographyHeadingKey
-    | TypographyDisplayKey;
+  | TypographyBodyKey
+  | TypographyTitleKey
+  | TypographyHeadingKey
+  | TypographyDisplayKey;
 
 interface TypographyLevelObj {
-    fontSize: number;
-    lineHeight: string | number;
-    fontWeight: string | number;
-    letterSpacing: string | number;
+  fontSize: number;
+  lineHeight: string | number;
+  fontWeight: string | number;
+  letterSpacing: string | number;
 }
 
 // API Types
 export type APIUserSettings = {
-    currentTheme?: string | null;
-    currentIcon?: string | null;
-    preferredMode: AppMode;
-    preferEmbossed: boolean;
-    spacePositions: Snowflake[];
+  currentTheme?: string | null;
+  currentIcon?: string | null;
+  preferredMode: AppMode;
+  preferEmbossed: boolean;
+  spacePositions: Snowflake[];
 
-    preferredSelfMute: boolean;
-    preferredSelfDeaf: boolean;
+  preferredSelfMute: boolean;
+  preferredSelfDeaf: boolean;
 
-    favoriteEmojis: string[];
-    favoriteGifs: string[];
+  favoriteEmojis: string[];
+  favoriteGifs: string[];
 
-    updatedAt: Date;
+  updatedAt: Date;
 };
 
 export type APIPrivateUser = {
-    id: Snowflake;
-    username: string;
-    defaultAvatar: {
-        type: number;
-        color?: string | null;
-        adapt?: boolean;
-    };
-    previousAvatars: string[];
-    email: string;
-    flags: bigint;
-    globalName?: string | null;
-    dateOfBirth: string;
-    avatar?: string | null;
-    accentColor: string;
-    createdAt: Date;
-    updatedAt: Date;
-    presence?: PresencePayload;
+  id: Snowflake;
+  username: string;
+  defaultAvatar: {
+    type: number;
+    color?: string | null;
+    adapt?: boolean;
+  };
+  previousAvatars: string[];
+  email: string;
+  flags: bigint;
+  globalName?: string | null;
+  dateOfBirth: string;
+  avatar?: string | null;
+  accentColor: string;
+  createdAt: Date;
+  updatedAt: Date;
+  presence?: PresencePayload;
 };
 
 export type APIReadState = {
-    id: string;
-    lastMessageId: string | null;
-    lastAckedId: string | null;
-    notificationsCursor: string | null;
-    mentionCount: number;
-    badgeCount: number;
-    lastPinTimestamp: Date | null;
-    flags: bigint;
-    type: ReadStateType;
+  id: string;
+  lastMessageId: string | null;
+  lastAckedId: string | null;
+  notificationsCursor: string | null;
+  mentionCount: number;
+  badgeCount: number;
+  lastPinTimestamp: Date | null;
+  flags: bigint;
+  type: ReadStateType;
 };
 
 export type APISpacePartial = Pick<
-    APISpace,
-    "id" | "name" | "icon" | "description"
+  APISpace,
+  "id" | "name" | "icon" | "description"
 >;
 
 export type APIMessageEmbed = {
-    title?: string;
-    description?: string;
+  title?: string | null;
+  description?: string;
+  url?: string;
+  color?: string;
+  timestamp?: number;
+  author?: {
+    name: string;
     url?: string;
-    color?: string;
-    timestamp?: number;
-    author?: {
-        name: string;
-        url?: string;
-        iconUrl?: string;
-    };
-    footer?: {
-        text: string;
-        iconUrl?: string;
-    };
-    spotify?: {
-        type: "track" | "album" | "artist" | "playlist";
-        id: Snowflake;
-        embedUrl: string;
-    };
-    youtube?: {
-        videoId: string;
-        embedUrl: string;
-    };
-    apple?: {
-        id: Snowflake;
-        type: "album" | "playlist" | "song" | "artist";
-        embedUrl: string;
-    };
-    image?: string | null;
-    media?: string | null;
-    thumbnail?: string | null;
-    spoiler?: boolean;
-    type: EmbedType;
+    iconUrl?: string;
+  };
+  footer?: {
+    text: string;
+    iconUrl?: string;
+  };
+  spotify?: {
+    type: "track" | "album" | "artist" | "playlist";
+    id: Snowflake;
+    embedUrl: string;
+  };
+  youtube?: {
+    videoId: string;
+    embedUrl: string;
+  };
+  apple?: {
+    id: Snowflake;
+    type: "album" | "playlist" | "song" | "artist";
+    embedUrl: string;
+  };
+  image?: string | null;
+  media?: string | null;
+  thumbnail?: string | null;
+  spoiler?: boolean;
+  type: EmbedType;
 };
 
 export type APIUser = Omit<
-    APIPrivateUser,
-    "email" | "settings" | "previousAvatars" | "dateOfBirth"
+  APIPrivateUser,
+  "email" | "settings" | "previousAvatars" | "dateOfBirth"
 >;
 
 export type APIChannelPermissionOverwrite = {
-    channelId: Snowflake;
-    spaceId: Snowflake;
+  channelId: Snowflake;
+  spaceId: Snowflake;
 
-    roleId?: Snowflake | null;
-    userId?: Snowflake | null;
+  roleId?: Snowflake | null;
+  userId?: Snowflake | null;
 
-    allow: bigint;
-    deny: bigint;
+  allow: bigint;
+  deny: bigint;
 
-    createdAt: Date;
-    updatedAt: Date;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type APISpaceBan = {
-    spaceId: Snowflake;
-    userId: Snowflake;
-    user?: APIUser;
-    bannedById: Snowflake;
-    bannedBy?: APIUser;
-    reason: string;
-    createdAt: Date;
+  spaceId: Snowflake;
+  userId: Snowflake;
+  user?: APIUser;
+  bannedById: Snowflake;
+  bannedBy?: APIUser;
+  reason: string;
+  createdAt: Date;
 };
 
 export type APISpace = {
-    id: Snowflake;
-    name: string;
-    ownerId: Snowflake;
-    owner?: APIUser | null;
-    flags: bigint;
-    description?: string | null;
-    icon?: string | null;
-    vanityCode?: string | null;
-    members?: APISpaceMember[] | null;
-    channels?: APIChannel[] | null;
-    roles?: APIRole[] | null;
-    everyoneRoleId: Snowflake;
-    memberCount: number;
-    createdAt: Date;
-    updatedAt: Date;
+  id: Snowflake;
+  name: string;
+  ownerId: Snowflake;
+  owner?: APIUser | null;
+  flags: bigint;
+  description?: string | null;
+  icon?: string | null;
+  vanityCode?: string | null;
+  members?: APISpaceMember[] | null;
+  channels?: APIChannel[] | null;
+  roles?: APIRole[] | null;
+  everyoneRoleId: Snowflake;
+  memberCount: number;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type APIRole = {
-    id: Snowflake;
-    name: string;
-    spaceId: Snowflake;
-    space?: APISpace | null;
-    color: string;
-    allow: bigint;
-    deny: bigint;
-    position: number;
-    hoist: boolean;
-    flags: bigint;
-    mentionable: boolean;
-    createdAt: Date;
-    updatedAt: Date;
+  id: Snowflake;
+  name: string;
+  spaceId: Snowflake;
+  space?: APISpace | null;
+  color: string;
+  allow: bigint;
+  deny: bigint;
+  position: number;
+  hoist: boolean;
+  flags: bigint;
+  mentionable: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type APIMemberRole = {
-    spaceId: Snowflake;
-    userId: Snowflake;
-    roleId: Snowflake;
-    role?: APIRole | null;
+  spaceId: Snowflake;
+  userId: Snowflake;
+  roleId: Snowflake;
+  role?: APIRole | null;
 };
 
 export type APIInvite = {
-    id: Snowflake;
-    type: InviteType;
+  id: Snowflake;
+  type: InviteType;
 
-    code: string;
+  code: string;
 
-    spaceId?: Snowflake | null;
-    space?: APISpace | null;
+  spaceId?: Snowflake | null;
+  space?: APISpace | null;
 
-    channelId?: Snowflake | null;
-    channel?: APIChannel | null;
+  channelId?: Snowflake | null;
+  channel?: APIChannel | null;
 
-    userId?: Snowflake | null;
-    user?: APIUser | null;
+  userId?: Snowflake | null;
+  user?: APIUser | null;
 
-    inviterId: Snowflake;
-    inviter?: APIUser | null;
+  inviterId: Snowflake;
+  inviter?: APIUser | null;
 
-    maxUses: number;
-    uses: number;
+  maxUses: number;
+  uses: number;
 
-    createdAt: Date;
-    updatedAt: Date;
-    expiresAt?: Date | null;
+  createdAt: Date;
+  updatedAt: Date;
+  expiresAt?: Date | null;
 
-    approximateMemberCount?: number | null;
-    approximateActiveCount?: number | null;
+  approximateMemberCount?: number | null;
+  approximateActiveCount?: number | null;
 };
 
 export type APIExpression = {
-    id: Snowflake;
-    type: number;
-    name: string;
-    assetHash: string;
-    authorId: Snowflake;
-    spaceId?: Snowflake | null;
-    animated: boolean;
-    flags: bigint;
-    createdAt: Date;
+  id: Snowflake;
+  type: number;
+  name: string;
+  assetHash: string;
+  authorId: Snowflake;
+  spaceId?: Snowflake | null;
+  animated: boolean;
+  flags: bigint;
+  createdAt: Date;
 };
 
 export type APIChannel = {
-    id: Snowflake;
-    type: ChannelType;
+  id: Snowflake;
+  type: ChannelType;
 
-    spaceId?: Snowflake | null;
-    space?: APISpace | null;
+  spaceId?: Snowflake | null;
+  space?: APISpace | null;
 
-    name?: string | null;
+  name?: string | null;
 
-    ownerId?: Snowflake | null;
-    owner?: APIUser | null;
+  ownerId?: Snowflake | null;
+  owner?: APIUser | null;
 
-    topic?: string | null;
-    position: number;
+  topic?: string | null;
+  position: number;
 
-    parentId?: Snowflake | null;
-    parent?: APIChannel | null;
+  parentId?: Snowflake | null;
+  parent?: APIChannel | null;
 
-    recipientIds?: Snowflake[] | null;
-    recipients?: APIUser[] | null;
+  recipientIds?: Snowflake[] | null;
+  recipients?: APIUser[] | null;
 
-    messages?: APIMessage[] | null;
+  messages?: APIMessage[] | null;
 
-    lastMessage?: APIMessage | null;
+  lastMessageId?: Snowflake | null;
+  lastMessage?: APIMessage | null;
 
-    nsfw: boolean;
+  nsfw: boolean;
 
-    overwrites?: APIChannelPermissionOverwrite[] | null;
+  overwrites?: APIChannelPermissionOverwrite[] | null;
 
-    flags: bigint;
+  flags: bigint;
 
-    createdAt: Date;
-    updatedAt: Date;
+  createdAt: Date;
+  updatedAt: Date;
 
-    icon?: string | null;
+  icon?: string | null;
 };
 
 export type APIRelationship = {
-    id: Snowflake;
-    userId: Snowflake;
-    otherUserId: Snowflake;
-    type: RelationshipType;
-    createdAt: Date;
-    updatedAt: Date;
+  id: Snowflake;
+  userId: Snowflake;
+  otherUserId: Snowflake;
+  type: RelationshipType;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type APIRelationshipWithUser = APIRelationship & {
-    user?: APIUser | null;
-    otherUser?: APIUser | null;
+  user?: APIUser | null;
+  otherUser?: APIUser | null;
 };
 
 export type APIMessageMention = {
-    type: MentionType;
-    id: Snowflake;
+  type: MentionType;
+  id: Snowflake;
 };
 
 export type APIMessage = {
-    id: Snowflake;
-    type: MessageType;
+  id: Snowflake;
+  type: MessageType;
 
-    channelId: Snowflake;
-    channel?: APIChannel | null;
+  channelId: Snowflake;
+  channel?: APIChannel | null;
 
-    spaceId?: Snowflake | null;
-    space?: APISpace | null;
+  spaceId?: Snowflake | null;
+  space?: APISpace | null;
 
-    content?: string | null;
-    createdAt: Date;
+  content?: string | null;
+  createdAt: Date;
 
-    authorId: Snowflake;
-    author?: APIUser | null;
+  authorId: Snowflake;
+  author?: APIUser | null;
 
-    memberId?: Snowflake | null;
-    member?: APISpaceMember | null;
+  memberId?: Snowflake | null;
+  member?: APISpaceMember | null;
 
-    embeds: APIMessageEmbed[];
-    edited: boolean;
-    flags: bigint;
-    updatedAt?: Date;
-    nonce?: Snowflake | null;
-    mentions?: APIMessageMention[];
+  embeds: APIMessageEmbed[];
+  edited: boolean;
+  flags: bigint;
+  updatedAt?: Date;
+  nonce?: Snowflake | null;
+  mentions?: APIMessageMention[];
 };
 
 export type APISpaceMember = {
-    spaceId: Snowflake;
-    space?: APISpace | null;
+  spaceId: Snowflake;
+  space?: APISpace | null;
 
-    userId: Snowflake;
-    user?: APIUser | null;
+  userId: Snowflake;
+  user?: APIUser | null;
 
-    flags: bigint;
-    nickname?: string | null;
-    avatar?: string | null;
-    banner?: string | null;
+  flags: bigint;
+  nickname?: string | null;
+  avatar?: string | null;
+  banner?: string | null;
 
-    roles?: APIMemberRole[];
+  roles?: APIMemberRole[];
 
-    joinedAt: Date;
-    updatedAt: Date;
+  joinedAt: Date;
+  updatedAt: Date;
 };
 
 export type APITheme = {
-    id: Snowflake;
-    name: string;
-    description?: string | null;
-    adaptive: boolean;
-    type: ThemeType;
-    style: ThemeStyle;
+  id: Snowflake;
+  name: string;
+  description?: string | null;
+  adaptive: boolean;
+  type: ThemeType;
+  style: ThemeStyle;
+  colors: {
+    common: {
+      white: ColorLike;
+      black: ColorLike;
+    };
+
+    // Base colors
+    primary: ColorLike;
+    neutral: ColorLike;
+    background: ColorLike;
+    surface: ColorLike;
+
+    // Feedback colors
+    danger: ColorLike;
+    warning: ColorLike;
+    info: ColorLike;
+    success: ColorLike;
+  };
+
+  typography: {
+    fontFamily: string;
     colors: {
-        common: {
-            white: ColorLike;
-            black: ColorLike;
-        };
-
-        // Base colors
-        primary: ColorLike;
-        neutral: ColorLike;
-        background: ColorLike;
-        surface: ColorLike;
-
-        // Feedback colors
-        danger: ColorLike;
-        warning: ColorLike;
-        info: ColorLike;
-        success: ColorLike;
+      primary: ColorLike;
+      secondary: ColorLike;
+      accent: ColorLike;
+      muted: ColorLike;
     };
+    levels: Record<TypographyLevel, TypographyLevelObj>;
+  };
 
-    typography: {
-        fontFamily: string;
-        colors: {
-            primary: ColorLike;
-            secondary: ColorLike;
-            accent: ColorLike;
-            muted: ColorLike;
-        };
-        levels: Record<TypographyLevel, TypographyLevelObj>;
-    };
+  createdAt?: Date;
+  updatedAt?: Date;
 
-    createdAt?: Date;
-    updatedAt?: Date;
-
-    authorId?: Snowflake | null;
-    author?: APIUser | null;
+  authorId?: Snowflake | null;
+  author?: APIUser | null;
 };
