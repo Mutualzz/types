@@ -2,6 +2,7 @@ import {
   type AppMode,
   type ChannelType,
   type EmbedType,
+  ExpressionType,
   type InviteType,
   type MentionType,
   type MessageType,
@@ -243,7 +244,7 @@ export type APIInvite = {
 
 export type APIExpression = {
   id: Snowflake;
-  type: number;
+  type: ExpressionType;
   name: string;
   assetHash: string;
   authorId: Snowflake;
@@ -329,7 +330,9 @@ export type APIMessage = {
   memberId?: Snowflake | null;
   member?: APISpaceMember | null;
 
-  embeds: APIMessageEmbed[];
+  embeds?: APIMessageEmbed[];
+  expressionIds?: Snowflake[];
+  expressions?: APIExpression[];
   edited: boolean;
   flags: bigint;
   updatedAt?: Date;
