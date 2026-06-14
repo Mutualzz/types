@@ -66,6 +66,7 @@ export type APIUserSettings = {
 
   favoriteEmojis: string[];
   favoriteGifs: string[];
+  favoriteStickers: string[];
 
   updatedAt: Date;
 };
