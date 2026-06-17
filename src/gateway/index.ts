@@ -7,6 +7,7 @@ import type {
   APISpace,
   APISpaceMember,
   APITheme,
+  APIUserProfile,
   APIUserSettings,
 } from "../api";
 import type { PresencePayload } from "../presence";
@@ -26,6 +27,10 @@ export const GatewayOpcodes = {
   PresenceScheduleSet: 11,
   PresenceScheduleClear: 12,
   VoiceStateUpdate: 13,
+  SubscribeUser: 14,
+  UnsubscribeUser: 15,
+  CustomStatusScheduleSet: 16,
+  CustomStatusScheduleClear: 17,
 } as const;
 
 export const GatewayDispatchEvents = {
@@ -35,6 +40,7 @@ export const GatewayDispatchEvents = {
   // Users
   UserUpdate: "USER_UPDATE",
   UserSettingsUpdate: "USER_SETTINGS_UPDATE",
+  UserProfileUpdate: "USER_PROFILE_UPDATE",
 
   // Spaces
   SpaceCreate: "SPACE_CREATE",
@@ -80,6 +86,7 @@ export const GatewayDispatchEvents = {
   // Presence
   PresenceUpdate: "PRESENCE_UPDATE",
   PresenceScheduleUpdate: "PRESENCE_SCHEDULE_UPDATE",
+  CustomStatusScheduleUpdate: "CUSTOM_STATUS_SCHEDULE_UPDATE",
 
   // Voice
   VoiceServerUpdate: "VOICE_SERVER_UPDATE",

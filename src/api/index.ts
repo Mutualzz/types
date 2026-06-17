@@ -402,3 +402,146 @@ export type APITheme = {
   authorId?: Snowflake | null;
   author?: APIUser | null;
 };
+
+export type ProfileBlockType =
+  | "header"
+  | "text"
+  | "image"
+  | "music"
+  | "links"
+  | "activity"
+  | "roles"
+  | "mutual"
+  | "divider"
+  | "quote";
+
+export interface ProfileLinkItem {
+  label: string;
+  url: string;
+}
+
+export interface ProfileLinksBlock extends ProfileBlockBase {
+  type: "links";
+  links: ProfileLinkItem[];
+}
+
+export interface ProfileActivityBlock extends ProfileBlockBase {
+  type: "activity";
+  showCustomStatus?: boolean;
+}
+
+export interface ProfileRolesBlock extends ProfileBlockBase {
+  type: "roles";
+  maxRoles?: number;
+}
+
+export interface ProfileMutualBlock extends ProfileBlockBase {
+  type: "mutual";
+  mode: "spaces" | "friends";
+  maxItems?: number;
+}
+
+export type ProfileDividerStyle = "line" | "dotted" | "space";
+
+export interface ProfileDividerBlock extends ProfileBlockBase {
+  type: "divider";
+  style?: ProfileDividerStyle;
+}
+
+export type ProfileQuoteVariant = "default" | "accent" | "warning";
+
+export interface ProfileQuoteBlock extends ProfileBlockBase {
+  type: "quote";
+  content: string;
+  variant?: ProfileQuoteVariant;
+  attribution?: string | null;
+}
+
+export interface ProfileBlockBase {
+  id: string;
+  type: ProfileBlockType;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  zIndex: number;
+}
+
+export interface ProfileHeaderBlock extends ProfileBlockBase {
+  type: "header";
+  bannerHeight?: number;
+  bannerFocusY?: number;
+}
+
+export interface ProfileTextBlock extends ProfileBlockBase {
+  type: "text";
+  content: string;
+}
+
+export interface ProfileImageBlock extends ProfileBlockBase {
+  type: "image";
+  src: string;
+  objectFit?: "cover" | "contain";
+}
+
+export interface ProfileMusicBlock extends ProfileBlockBase {
+  type: "music";
+  title?: string | null;
+  artists?: string | null;
+  image?: string | null;
+  previewUrl?: string | null;
+  trackUrl?: string | null;
+  track?: APIProfileMusicSearchTrack | null;
+}
+
+export type APIProfileBlock =
+  | ProfileHeaderBlock
+  | ProfileTextBlock
+  | ProfileImageBlock
+  | ProfileMusicBlock
+  | ProfileLinksBlock
+  | ProfileActivityBlock
+  | ProfileRolesBlock
+  | ProfileMutualBlock
+  | ProfileDividerBlock
+  | ProfileQuoteBlock;
+
+export type APIProfileMusicTrackRef = {
+  source: "itunes" | "deezer";
+  id: string;
+};
+
+export type APIProfileMusicSearchTrack = {
+  source: "itunes" | "deezer";
+  id: string;
+  name: string;
+  artists: string;
+  image?: string | null;
+  previewUrl?: string | null;
+  trackUrl: string;
+};
+
+export type APIProfileIntroMusic = {
+  url: string;
+  title?: string | null;
+  image?: string | null;
+  authorName?: string | null;
+  audioHash?: string | null;
+  previewUrl?: string | null;
+  musicTrack?: APIProfileMusicTrackRef | null;
+  spotify?: APIMessageEmbed["spotify"];
+  youtube?: APIMessageEmbed["youtube"];
+  apple?: APIMessageEmbed["apple"];
+};
+
+export type APIUserProfile = {
+  userId: Snowflake;
+  configured: boolean;
+  backgroundColor?: string | null;
+  backgroundImage?: string | null;
+  banner?: string | null;
+  bio?: string | null;
+  introMusic?: APIProfileIntroMusic | null;
+  blocks: APIProfileBlock[];
+  updatedAt: Date;
+};
