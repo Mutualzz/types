@@ -174,4 +174,8 @@ export const CDNRoutes = {
     profileMusic(userId: Snowflake, hash: string) {
         return `/profiles/${userId}/music/${hash}.mp3` as const;
     },
+
+    profileFont(userId: Snowflake, hash: string) {
+        return `/profiles/${userId}/fonts/${hash}.woff2` as const;
+    },
 };

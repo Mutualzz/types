@@ -72,6 +72,10 @@ export const GatewayDispatchEvents = {
   MessageUpdate: "MESSAGE_UPDATE",
   MessageDelete: "MESSAGE_DELETE",
   MessageDeleteBulk: "MESSAGE_DELETE_BULK",
+  MessageReactionAdd: "MESSAGE_REACTION_ADD",
+  MessageReactionRemove: "MESSAGE_REACTION_REMOVE",
+  MessageReactionRemoveAll: "MESSAGE_REACTION_REMOVE_ALL",
+  MessageReactionRemoveEmoji: "MESSAGE_REACTION_REMOVE_EMOJI",
 
   // Invites
   InviteCreate: "INVITE_CREATE",

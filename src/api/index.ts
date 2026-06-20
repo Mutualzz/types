@@ -312,6 +312,47 @@ export type APIMessageMention = {
   id: Snowflake;
 };
 
+export type APIMessageReactionEmoji =
+  | { type: "unicode"; value: string }
+  | { type: "expression"; expression: APIExpression };
+
+export type APIMessageReaction = {
+  emoji: APIMessageReactionEmoji;
+  count: number;
+  me: boolean;
+};
+
+export type APIMessageReactionEvent = {
+  channelId: Snowflake;
+  messageId: Snowflake;
+  spaceId?: Snowflake | null;
+  userId: Snowflake;
+  user?: APIUser | null;
+  emoji: APIMessageReactionEmoji;
+  messageAuthorId?: Snowflake;
+};
+
+export type APIMessageReactionRemoveEvent = {
+  channelId: Snowflake;
+  messageId: Snowflake;
+  spaceId?: Snowflake | null;
+  userId: Snowflake;
+  emoji: APIMessageReactionEmoji;
+};
+
+export type APIMessageReactionRemoveEmojiEvent = {
+  channelId: Snowflake;
+  messageId: Snowflake;
+  spaceId?: Snowflake | null;
+  emoji: APIMessageReactionEmoji;
+};
+
+export type APIMessageReactionRemoveAllEvent = {
+  channelId: Snowflake;
+  messageId: Snowflake;
+  spaceId?: Snowflake | null;
+};
+
 export type APIMessage = {
   id: Snowflake;
   type: MessageType;
@@ -339,6 +380,7 @@ export type APIMessage = {
   updatedAt?: Date;
   nonce?: Snowflake | null;
   mentions?: APIMessageMention[];
+  reactions?: APIMessageReaction[];
 };
 
 export type APISpaceMember = {
@@ -541,6 +583,7 @@ export type APIUserProfile = {
   backgroundImage?: string | null;
   banner?: string | null;
   bio?: string | null;
+  pageFontFamily?: string | null;
   introMusic?: APIProfileIntroMusic | null;
   blocks: APIProfileBlock[];
   updatedAt: Date;
