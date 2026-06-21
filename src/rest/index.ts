@@ -171,6 +171,23 @@ export const CDNRoutes = {
         return `/profiles/${userId}/background/${hash}.${format}${query ? `?${query}` : ""}` as const;
     },
 
+    profileImage(
+        userId: Snowflake,
+        hash: string,
+        format: AvatarFormat = ImageFormat.WebP,
+        size: Sizes = 512,
+        animated = false,
+    ) {
+        const params = new URLSearchParams();
+
+        if (format) params.set("format", format);
+        if (size) params.set("size", size.toString());
+        if (animated) params.set("animated", "true");
+
+        const query = params.toString();
+        return `/profiles/${userId}/image/${hash}.${format}${query ? `?${query}` : ""}` as const;
+    },
+
     profileMusic(userId: Snowflake, hash: string) {
         return `/profiles/${userId}/music/${hash}.mp3` as const;
     },
