@@ -372,6 +372,9 @@ export type APIMessage = {
   memberId?: Snowflake | null;
   member?: APISpaceMember | null;
 
+  repliedToId?: Snowflake | null;
+  repliedTo?: APIMessage | null;
+
   embeds?: APIMessageEmbed[];
   expressionIds?: Snowflake[];
   expressions?: APIExpression[];
