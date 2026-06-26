@@ -458,7 +458,8 @@ export type ProfileBlockType =
   | "roles"
   | "mutual"
   | "divider"
-  | "quote";
+  | "quote"
+  | "draw";
 
 export interface ProfileLinkItem {
   label: string;
@@ -537,6 +538,15 @@ export interface ProfileMusicBlock extends ProfileBlockBase {
   previewUrl?: string | null;
   trackUrl?: string | null;
   track?: APIProfileMusicSearchTrack | null;
+  youtubeUrl?: string | null;
+  audioHash?: string | null;
+}
+
+export interface ProfileDrawBlock extends ProfileBlockBase {
+  type: "draw";
+  svgData: string | null;
+  paths: string | null;
+  backgroundColor: string | null;
 }
 
 export type APIProfileBlock =
@@ -549,7 +559,8 @@ export type APIProfileBlock =
   | ProfileRolesBlock
   | ProfileMutualBlock
   | ProfileDividerBlock
-  | ProfileQuoteBlock;
+  | ProfileQuoteBlock
+  | ProfileDrawBlock;
 
 export type APIProfileMusicTrackRef = {
   source: "itunes" | "deezer";
