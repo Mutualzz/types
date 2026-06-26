@@ -577,7 +577,7 @@ export type APIProfileMusicSearchTrack = {
   trackUrl: string;
 };
 
-export type APIProfileIntroMusic = {
+export type APIProfileMusic = {
   url: string;
   title?: string | null;
   image?: string | null;
@@ -598,7 +598,7 @@ export type APIUserProfile = {
   banner?: string | null;
   bio?: string | null;
   pageFontFamily?: string | null;
-  introMusic?: APIProfileIntroMusic | null;
+  profileMusic?: APIProfileMusic | null;
   blocks: APIProfileBlock[];
   updatedAt: Date;
 };
