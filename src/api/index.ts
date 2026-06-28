@@ -353,6 +353,16 @@ export type APIMessageReactionRemoveAllEvent = {
   spaceId?: Snowflake | null;
 };
 
+export type APIAttachment = {
+  id: Snowflake;
+  filename: string;
+  size: number;
+  contentType: string;
+  url: string;
+  width?: number | null;
+  height?: number | null;
+};
+
 export type APIMessage = {
   id: Snowflake;
   type: MessageType;
@@ -378,6 +388,7 @@ export type APIMessage = {
   embeds?: APIMessageEmbed[];
   expressionIds?: Snowflake[];
   expressions?: APIExpression[];
+  attachments?: APIAttachment[];
   edited: boolean;
   flags: bigint;
   updatedAt?: Date;
