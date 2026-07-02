@@ -22,6 +22,8 @@ export interface RESTSession {
 
 export type Sizes = 16 | 32 | 64 | 128 | 256 | 512 | 1024;
 
+export type ProfileFontFormat = "woff2" | "woff" | "ttf" | "otf";
+
 export type AvatarFormat = Exclude<ImageFormat, ImageFormat.Lottie>;
 export type SpaceIconFormat = Exclude<ImageFormat, ImageFormat.Lottie>;
 export type ChannelIconFormat = Exclude<ImageFormat, ImageFormat.Lottie>;
@@ -192,7 +194,11 @@ export const CDNRoutes = {
         return `/profiles/${userId}/music/${hash}.mp3` as const;
     },
 
-    profileFont(userId: Snowflake, hash: string) {
-        return `/profiles/${userId}/fonts/${hash}.woff2` as const;
+    profileFont(
+        userId: Snowflake,
+        hash: string,
+        format: ProfileFontFormat = "woff2",
+    ) {
+        return `/profiles/${userId}/fonts/${hash}.${format}` as const;
     },
 };
