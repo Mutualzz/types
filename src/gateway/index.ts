@@ -10,7 +10,11 @@ import type {
   APIUserProfile,
   APIUserSettings,
 } from "../api";
-import type { PresencePayload } from "../presence";
+import type {
+  CustomStatusSchedule,
+  PresencePayload,
+  PresenceSchedule,
+} from "../presence";
 
 export const GatewayOpcodes = {
   Dispatch: 0,
@@ -117,6 +121,24 @@ export const GatewayDispatchEvents = {
   // Group DM
   ChannelRecipientAdd: "CHANNEL_RECIPIENT_ADD",
   ChannelRecipientRemove: "CHANNEL_RECIPIENT_REMOVE",
+
+  // Posts
+  PostCreate: "POST_CREATE",
+  PostUpdate: "POST_UPDATE",
+  PostDelete: "POST_DELETE",
+
+  // Post Comments
+  PostCommentCreate: "POST_COMMENT_CREATE",
+  PostCommentUpdate: "POST_COMMENT_UPDATE",
+  PostCommentDelete: "POST_COMMENT_DELETE",
+
+  // Post Engagement
+  PostLikeAdd: "POST_LIKE_ADD",
+  PostLikeRemove: "POST_LIKE_REMOVE",
+  PostSaveAdd: "POST_SAVE_ADD",
+  PostSaveRemove: "POST_SAVE_REMOVE",
+  PostShareAdd: "POST_SHARE_ADD",
+  PostShareRemove: "POST_SHARE_REMOVE",
 } as const;
 
 export type EVENT = keyof typeof GatewayDispatchEvents;
@@ -170,6 +192,9 @@ export type GatewayReadyPayload = {
   expressions: APIExpression[];
   readStates: APIReadState[];
   mergedPresences: Record<string, PresencePayload>;
+  profile: APIUserProfile | null;
+  presenceSchedule: PresenceSchedule | null;
+  customStatusSchedule: CustomStatusSchedule | null;
 };
 
 export interface GatewaySpaceMember extends APISpaceMember {

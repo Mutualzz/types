@@ -37,7 +37,7 @@ export enum RelationshipType {
 }
 
 export type MentionType = "user" | "role" | "everyone" | "here";
-export type EmbedType = "rich" | "gifv";
+export type EmbedType = "rich" | "gifv" | "post";
 
 export type ThemeType = "light" | "dark";
 export type ThemeStyle = "normal" | "gradient";

@@ -142,6 +142,15 @@ export type APIMessageEmbed = {
   thumbnail?: string | null;
   spoiler?: boolean;
   type: EmbedType;
+  post?: {
+    id: Snowflake;
+    authorId: Snowflake;
+    author?: APIUser | null;
+    content?: string | null;
+    attachments?: APIAttachment[];
+    hashtags?: APIHashtag[];
+    createdAt: Date;
+  } | null;
 };
 
 export type APIUser = Omit<
@@ -161,6 +170,57 @@ export type APIChannelPermissionOverwrite = {
 
   createdAt: Date;
   updatedAt: Date;
+};
+
+export type APIHashtag = {
+  id: Snowflake;
+  tag: string;
+};
+
+export type APIPost = {
+  id: Snowflake;
+
+  authorId: Snowflake;
+  author?: APIUser | null;
+
+  content?: string | null;
+  attachments?: APIAttachment[];
+
+  hashtags?: APIHashtag[];
+  expressions?: APIExpression[];
+
+  likeCount?: number;
+  saveCount?: number;
+  shareCount?: number;
+  commentCount?: number;
+
+  liked?: boolean;
+  saved?: boolean;
+  shared?: boolean;
+
+  scheduledFor?: Date | null;
+
+  createdAt: Date;
+  updatedAt?: Date;
+};
+
+export type APIPostComment = {
+  id: Snowflake;
+
+  postId: Snowflake;
+  post?: APIPost | null;
+
+  authorId: Snowflake;
+  author?: APIUser | null;
+
+  content: string;
+  expressionIds?: Snowflake[];
+  expressions?: APIExpression[];
+
+  edited: boolean;
+
+  createdAt: Date;
+  updatedAt?: Date;
 };
 
 export type APISpaceBan = {
@@ -298,6 +358,8 @@ export type APIRelationship = {
   userId: Snowflake;
   otherUserId: Snowflake;
   type: RelationshipType;
+  nickname: string | null;
+  note: string | null;
   createdAt: Date;
   updatedAt: Date;
 };
