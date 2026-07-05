@@ -635,6 +635,97 @@ export type APIProfileBlock =
   | ProfileQuoteBlock
   | ProfileDrawBlock;
 
+export type ProfileBlockSize = "s" | "m" | "l";
+
+export interface MobileProfileBlockBase {
+  id: string;
+  type: ProfileBlockType;
+  size: ProfileBlockSize;
+  order: number;
+}
+
+export interface MobileProfileHeaderBlock extends MobileProfileBlockBase {
+  type: "header";
+  bannerHeight?: number;
+  bannerFocusY?: number;
+}
+
+export interface MobileProfileTextBlock extends MobileProfileBlockBase {
+  type: "text";
+  content: string;
+}
+
+export interface MobileProfileImageBlock extends MobileProfileBlockBase {
+  type: "image";
+  src: string;
+  objectFit?: "cover" | "contain";
+}
+
+export interface MobileProfileMusicBlock extends MobileProfileBlockBase {
+  type: "music";
+  title?: string | null;
+  artists?: string | null;
+  image?: string | null;
+  previewUrl?: string | null;
+  trackUrl?: string | null;
+  track?: APIProfileMusicSearchTrack | null;
+  youtubeUrl?: string | null;
+  audioHash?: string | null;
+}
+
+export interface MobileProfileLinksBlock extends MobileProfileBlockBase {
+  type: "links";
+  links: ProfileLinkItem[];
+}
+
+export interface MobileProfileActivityBlock extends MobileProfileBlockBase {
+  type: "activity";
+  showCustomStatus?: boolean;
+}
+
+export interface MobileProfileRolesBlock extends MobileProfileBlockBase {
+  type: "roles";
+  maxRoles?: number;
+}
+
+export interface MobileProfileMutualBlock extends MobileProfileBlockBase {
+  type: "mutual";
+  mode: "spaces" | "friends";
+  maxItems?: number;
+}
+
+export interface MobileProfileDividerBlock extends MobileProfileBlockBase {
+  type: "divider";
+  style?: ProfileDividerStyle;
+}
+
+export interface MobileProfileQuoteBlock extends MobileProfileBlockBase {
+  type: "quote";
+  content: string;
+  variant?: ProfileQuoteVariant;
+  attribution?: string | null;
+}
+
+export interface MobileProfileDrawBlock extends MobileProfileBlockBase {
+  type: "draw";
+  svgData: string | null;
+  paths: string | null;
+  backgroundColor: string | null;
+}
+
+export type APIMobileProfileBlock =
+  | MobileProfileHeaderBlock
+  | MobileProfileTextBlock
+  | MobileProfileImageBlock
+  | MobileProfileMusicBlock
+  | MobileProfileLinksBlock
+  | MobileProfileActivityBlock
+  | MobileProfileRolesBlock
+  | MobileProfileMutualBlock
+  | MobileProfileDividerBlock
+  | MobileProfileQuoteBlock
+  | MobileProfileDrawBlock;
+
 export type APIProfileMusicTrackRef = {
   source: "itunes" | "deezer";
   id: string;
@@ -673,5 +764,6 @@ export type APIUserProfile = {
   pageFontFamily?: string | null;
   profileMusic?: APIProfileMusic | null;
   blocks: APIProfileBlock[];
+  mobileBlocks: APIMobileProfileBlock[];
   updatedAt: Date;
 };
