@@ -18,6 +18,9 @@ export interface RESTSession {
     userId: string;
     createdAt: number;
     lastUsedAt: number;
+    // Only present on listSessions() results — never persisted on the
+    // session record itself.
+    token?: string;
 }
 
 export type Sizes = 16 | 32 | 64 | 128 | 256 | 512 | 1024;

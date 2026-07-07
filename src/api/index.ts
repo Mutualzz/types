@@ -8,6 +8,9 @@ import {
   type MessageType,
   ReadStateType,
   RelationshipType,
+  type ReportReason,
+  type ReportStatus,
+  type ReportTargetType,
   type Snowflake,
   type ThemeStyle,
   type ThemeType,
@@ -158,6 +161,54 @@ export type APIUser = Omit<
   "email" | "settings" | "previousAvatars" | "dateOfBirth"
 >;
 
+export type APIStaffAction = {
+  id: Snowflake;
+  action: string;
+  reason?: string | null;
+  createdAt: Date;
+  actor: {
+    id: Snowflake;
+    username: string;
+    globalName?: string | null;
+    avatar?: string | null;
+  };
+  target: {
+    id: Snowflake;
+    username: string;
+    globalName?: string | null;
+    avatar?: string | null;
+  };
+};
+
+export type APIStaffSession = {
+  sessionId: string;
+  createdAt: number;
+  lastUsedAt: number;
+};
+
+export type APIReport = {
+  id: Snowflake;
+  targetType: ReportTargetType;
+  targetId: Snowflake;
+  reason: ReportReason;
+  description?: string | null;
+  status: ReportStatus;
+  createdAt: Date;
+  reviewedAt?: Date | null;
+  reporter: {
+    id: Snowflake;
+    username: string;
+    globalName?: string | null;
+    avatar?: string | null;
+  };
+  reviewedBy?: {
+    id: Snowflake;
+    username: string;
+    globalName?: string | null;
+    avatar?: string | null;
+  } | null;
+};
+
 export type APIChannelPermissionOverwrite = {
   channelId: Snowflake;
   spaceId: Snowflake;
@@ -187,6 +238,8 @@ export type APIPost = {
   attachments?: APIAttachment[];
 
   hashtags?: APIHashtag[];
+  embeds?: APIMessageEmbed[];
+  expressionIds?: Snowflake[];
   expressions?: APIExpression[];
 
   likeCount?: number;
@@ -214,8 +267,11 @@ export type APIPostComment = {
   author?: APIUser | null;
 
   content: string;
+  embeds?: APIMessageEmbed[];
   expressionIds?: Snowflake[];
   expressions?: APIExpression[];
+
+  repliedToId?: Snowflake | null;
 
   edited: boolean;
 

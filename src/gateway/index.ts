@@ -45,6 +45,7 @@ export const GatewayDispatchEvents = {
   UserUpdate: "USER_UPDATE",
   UserSettingsUpdate: "USER_SETTINGS_UPDATE",
   UserProfileUpdate: "USER_PROFILE_UPDATE",
+  UserForceLogout: "USER_FORCE_LOGOUT",
 
   // Spaces
   SpaceCreate: "SPACE_CREATE",
@@ -151,6 +152,7 @@ export const GatewayCloseCodes = {
   NotAuthenticated: 4002,
   RateLimit: 4008,
   MissingPermissions: 4009,
+  ForceLogout: 4010,
 };
 
 export interface GatewayPayload {

@@ -44,3 +44,27 @@ export type ThemeStyle = "normal" | "gradient";
 export type AppMode = "spaces" | "feed" | "@me";
 
 export type Snowflake = string;
+
+export type ReportTargetType = "message" | "post" | "comment" | "user";
+
+export type ReportReason =
+    | "spam"
+    | "harassment"
+    | "hate_speech"
+    | "nsfw"
+    | "self_harm"
+    | "impersonation"
+    | "misinformation"
+    | "other";
+
+export type ReportStatus = "pending" | "reviewed" | "dismissed" | "actioned";
+
+export type StaffActionType =
+    | "user.disable"
+    | "user.enable"
+    | "user.force_logout"
+    | "user.session_revoke"
+    | "user.profile_update"
+    | "user.verify_reminder_sent"
+    | `user.flag.${string}.${"grant" | "revoke"}`
+    | `content.takedown.${Exclude<ReportTargetType, "user">}`;
