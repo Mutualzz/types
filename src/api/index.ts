@@ -699,6 +699,13 @@ export interface ProfileTextBlock extends ProfileBlockBase {
   content: string;
 }
 
+export interface ProfileImageCrop {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
 export interface ProfileImageBlock extends ProfileBlockBase {
   type: "image";
   src: string;
@@ -761,6 +768,7 @@ export interface MobileProfileImageBlock extends MobileProfileBlockBase {
   type: "image";
   src: string;
   objectFit?: "cover" | "contain";
+  crop?: ProfileImageCrop | null;
 }
 
 export interface MobileProfileMusicBlock extends MobileProfileBlockBase {
