@@ -62,9 +62,16 @@ export type ReportStatus = "pending" | "reviewed" | "dismissed" | "actioned";
 export type StaffActionType =
     | "user.disable"
     | "user.enable"
+    | "user.delete"
+    | "user.hard_delete"
     | "user.force_logout"
     | "user.session_revoke"
     | "user.profile_update"
     | "user.verify_reminder_sent"
+    | "user.warn"
+    | "user.restrict"
+    | "user.restrict_lift"
     | `user.flag.${string}.${"grant" | "revoke"}`
     | `content.takedown.${Exclude<ReportTargetType, "user">}`;
+
+export type AppealStatus = "pending" | "accepted" | "rejected";

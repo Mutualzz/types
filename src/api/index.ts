@@ -1,4 +1,5 @@
 import {
+  type AppealStatus,
   type AppMode,
   type ChannelType,
   type EmbedType,
@@ -12,6 +13,7 @@ import {
   type ReportStatus,
   type ReportTargetType,
   type Snowflake,
+  type StaffActionType,
   type ThemeStyle,
   type ThemeType,
 } from "../common";
@@ -71,6 +73,10 @@ export type APIUserSettings = {
   favoriteGifs: string[];
   favoriteStickers: string[];
 
+  pushEnabled: boolean;
+  pushDirectMessages: boolean;
+  pushMentions: boolean;
+
   updatedAt: Date;
 };
 
@@ -89,6 +95,8 @@ export type APIPrivateUser = {
   dateOfBirth: string;
   avatar?: string | null;
   accentColor: string;
+  restrictedUntil?: Date | null;
+  restrictionReason?: string | null;
   createdAt: Date;
   updatedAt: Date;
   presence?: PresencePayload;
@@ -158,12 +166,17 @@ export type APIMessageEmbed = {
 
 export type APIUser = Omit<
   APIPrivateUser,
-  "email" | "settings" | "previousAvatars" | "dateOfBirth"
+  | "email"
+  | "settings"
+  | "previousAvatars"
+  | "dateOfBirth"
+  | "restrictedUntil"
+  | "restrictionReason"
 >;
 
 export type APIStaffAction = {
   id: Snowflake;
-  action: string;
+  action: StaffActionType;
   reason?: string | null;
   createdAt: Date;
   actor: {
@@ -172,18 +185,30 @@ export type APIStaffAction = {
     globalName?: string | null;
     avatar?: string | null;
   };
-  target: {
+  target?: {
     id: Snowflake;
     username: string;
     globalName?: string | null;
     avatar?: string | null;
-  };
+  } | null;
 };
 
 export type APIStaffSession = {
   sessionId: string;
   createdAt: number;
   lastUsedAt: number;
+};
+
+export type APIStaffNote = {
+  id: Snowflake;
+  content: string;
+  createdAt: Date;
+  author: {
+    id: Snowflake;
+    username: string;
+    globalName?: string | null;
+    avatar?: string | null;
+  };
 };
 
 export type APIReport = {
@@ -196,6 +221,27 @@ export type APIReport = {
   createdAt: Date;
   reviewedAt?: Date | null;
   reporter: {
+    id: Snowflake;
+    username: string;
+    globalName?: string | null;
+    avatar?: string | null;
+  };
+  reviewedBy?: {
+    id: Snowflake;
+    username: string;
+    globalName?: string | null;
+    avatar?: string | null;
+  } | null;
+};
+
+export type APIAppeal = {
+  id: Snowflake;
+  message: string;
+  status: AppealStatus;
+  staffResponse?: string | null;
+  createdAt: Date;
+  reviewedAt?: Date | null;
+  user: {
     id: Snowflake;
     username: string;
     globalName?: string | null;
