@@ -45,7 +45,7 @@ export type AppMode = "spaces" | "feed" | "@me";
 
 export type Snowflake = string;
 
-export type ReportTargetType = "message" | "post" | "comment" | "user";
+export type ReportTargetType = "message" | "post" | "comment" | "user" | "space";
 
 export type ReportReason =
     | "spam"
@@ -72,6 +72,23 @@ export type StaffActionType =
     | "user.restrict"
     | "user.restrict_lift"
     | `user.flag.${string}.${"grant" | "revoke"}`
-    | `content.takedown.${Exclude<ReportTargetType, "user">}`;
+    | `content.takedown.${Exclude<ReportTargetType, "user">}`
+    | "report.view"
+    | "space.delete"
+    | "space.lockdown"
+    | "space.lockdown_lift";
 
 export type AppealStatus = "pending" | "accepted" | "rejected";
+
+export type SupportTicketCategory =
+    | "account"
+    | "bug"
+    | "donations"
+    | "feature"
+    | "other";
+
+export type SupportTicketStatus =
+    | "open"
+    | "awaiting_reply"
+    | "resolved"
+    | "closed";

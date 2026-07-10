@@ -14,6 +14,8 @@ import {
   type ReportTargetType,
   type Snowflake,
   type StaffActionType,
+  type SupportTicketCategory,
+  type SupportTicketStatus,
   type ThemeStyle,
   type ThemeType,
 } from "../common";
@@ -164,6 +166,20 @@ export type APIMessageEmbed = {
   } | null;
 };
 
+export type APICodedLink = {
+  type: InviteType;
+  code: string;
+  space?: APISpacePartial | null;
+  channel?: Pick<APIChannel, "id" | "name" | "type"> | null;
+  user?: APIUser | null;
+  inviter?: APIUser | null;
+  approximateMemberCount?: number | null;
+  approximatePresenceCount?: number | null;
+  expiresAt?: Date | null;
+};
+
+export type APICodedLinkInput = Pick<APICodedLink, "type" | "code">;
+
 export type APIUser = Omit<
   APIPrivateUser,
   | "email"
@@ -234,6 +250,60 @@ export type APIReport = {
   } | null;
 };
 
+export type APIReportContentUser = {
+  id: Snowflake;
+  username: string;
+  globalName?: string | null;
+  avatar?: string | null;
+};
+
+export type APIReportMessageContent = {
+  reported: APIMessage;
+  context: APIMessage[];
+  channelType: ChannelType;
+  isDirectMessage: boolean;
+};
+
+export type APIReportPostContent = {
+  post: APIPost;
+};
+
+export type APIReportCommentContent = {
+  comment: APIPostComment;
+};
+
+export type APIReportUserContent = {
+  user: APIReportContentUser;
+};
+
+export type APIReportSpaceContent = {
+  space: Pick<
+    APISpace,
+    | "id"
+    | "name"
+    | "description"
+    | "icon"
+    | "ownerId"
+    | "memberCount"
+    | "flags"
+    | "createdAt"
+  > & {
+    owner?: APIReportContentUser | null;
+  };
+};
+
+export type APIReportContent =
+  | { type: "message"; data: APIReportMessageContent }
+  | { type: "post"; data: APIReportPostContent }
+  | { type: "comment"; data: APIReportCommentContent }
+  | { type: "user"; data: APIReportUserContent }
+  | { type: "space"; data: APIReportSpaceContent }
+  | { type: "unavailable"; message: string };
+
+export type APIReportDetail = APIReport & {
+  content: APIReportContent;
+};
+
 export type APIAppeal = {
   id: Snowflake;
   message: string;
@@ -247,12 +317,50 @@ export type APIAppeal = {
     globalName?: string | null;
     avatar?: string | null;
   };
+  space?: {
+    id: Snowflake;
+    name: string;
+    icon?: string | null;
+  } | null;
   reviewedBy?: {
     id: Snowflake;
     username: string;
     globalName?: string | null;
     avatar?: string | null;
   } | null;
+};
+
+export type APISupportUser = {
+  id: Snowflake;
+  username: string;
+  globalName?: string | null;
+  avatar?: string | null;
+};
+
+export type APISupportMessage = {
+  id: Snowflake;
+  body: string;
+  isStaff: boolean;
+  createdAt: Date;
+  author: APISupportUser;
+};
+
+export type APISupportTicket = {
+  id: Snowflake;
+  category: SupportTicketCategory;
+  subject: string;
+  status: SupportTicketStatus;
+  platform?: string | null;
+  appVersion?: string | null;
+  lastMessageAt: Date;
+  createdAt: Date;
+  closedAt?: Date | null;
+  user: APISupportUser;
+  assignedTo?: APISupportUser | null;
+};
+
+export type APISupportTicketDetail = APISupportTicket & {
+  messages: APISupportMessage[];
 };
 
 export type APIChannelPermissionOverwrite = {
@@ -550,6 +658,7 @@ export type APIMessage = {
   repliedTo?: APIMessage | null;
 
   embeds?: APIMessageEmbed[];
+  codedLinks?: APICodedLink[];
   expressionIds?: Snowflake[];
   expressions?: APIExpression[];
   attachments?: APIAttachment[];
