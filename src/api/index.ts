@@ -743,7 +743,8 @@ export type ProfileBlockType =
   | "mutual"
   | "divider"
   | "quote"
-  | "draw";
+  | "draw"
+  | "sticker";
 
 export interface ProfileLinkItem {
   label: string;
@@ -795,6 +796,7 @@ export interface ProfileBlockBase {
   width: number;
   height: number;
   zIndex: number;
+  cornerRadius?: number;
 }
 
 export interface ProfileHeaderBlock extends ProfileBlockBase {
@@ -840,6 +842,11 @@ export interface ProfileDrawBlock extends ProfileBlockBase {
   backgroundColor: string | null;
 }
 
+export interface ProfileStickerBlock extends ProfileBlockBase {
+  type: "sticker";
+  expressionId: string;
+}
+
 export type APIProfileBlock =
   | ProfileHeaderBlock
   | ProfileTextBlock
@@ -851,7 +858,8 @@ export type APIProfileBlock =
   | ProfileMutualBlock
   | ProfileDividerBlock
   | ProfileQuoteBlock
-  | ProfileDrawBlock;
+  | ProfileDrawBlock
+  | ProfileStickerBlock;
 
 export type ProfileBlockSize = "s" | "m" | "l";
 
@@ -860,6 +868,7 @@ export interface MobileProfileBlockBase {
   type: ProfileBlockType;
   size: ProfileBlockSize;
   order: number;
+  cornerRadius?: number;
 }
 
 export interface MobileProfileHeaderBlock extends MobileProfileBlockBase {
@@ -932,6 +941,11 @@ export interface MobileProfileDrawBlock extends MobileProfileBlockBase {
   backgroundColor: string | null;
 }
 
+export interface MobileProfileStickerBlock extends MobileProfileBlockBase {
+  type: "sticker";
+  expressionId: string;
+}
+
 export type APIMobileProfileBlock =
   | MobileProfileHeaderBlock
   | MobileProfileTextBlock
@@ -943,7 +957,8 @@ export type APIMobileProfileBlock =
   | MobileProfileMutualBlock
   | MobileProfileDividerBlock
   | MobileProfileQuoteBlock
-  | MobileProfileDrawBlock;
+  | MobileProfileDrawBlock
+  | MobileProfileStickerBlock;
 
 export type APIProfileMusicTrackRef = {
   source: "itunes" | "deezer";
