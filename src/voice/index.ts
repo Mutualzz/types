@@ -1,5 +1,8 @@
 import type { Snowflake } from "../common.ts";
 
+/** Which client surface holds this voice session. */
+export type VoiceClient = "desktop" | "mobile" | "web" | "minecraft";
+
 export interface VoiceState {
     userId: Snowflake;
     spaceId?: Snowflake | null;
@@ -13,6 +16,9 @@ export interface VoiceState {
 
     sessionId: string;
     updatedAt: number;
+
+    /** Set by the joining client (or forced by the Minecraft bridge path). */
+    client?: VoiceClient;
 }
 
 export const VoiceOpcodes = {

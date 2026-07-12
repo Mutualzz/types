@@ -112,6 +112,15 @@ export const GatewayDispatchEvents = {
   RelationshipUpdate: "RELATIONSHIP_UPDATE",
   RelationshipDelete: "RELATIONSHIP_DELETE",
 
+  // Minecraft bridge
+  MinecraftLinkUpdate: "MINECRAFT_LINK_UPDATE",
+  BridgeChat: "BRIDGE_CHAT",
+  BridgeJoin: "BRIDGE_JOIN",
+  BridgeLeave: "BRIDGE_LEAVE",
+  BridgeVoiceJoin: "BRIDGE_VOICE_JOIN",
+  BridgeVoiceLeave: "BRIDGE_VOICE_LEAVE",
+  BridgePresence: "BRIDGE_PRESENCE",
+
   // Space Bans
   SpaceBanAdd: "SPACE_BAN_ADD",
   SpaceBanRemove: "SPACE_BAN_REMOVE",
