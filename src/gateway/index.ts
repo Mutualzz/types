@@ -120,6 +120,8 @@ export const GatewayDispatchEvents = {
   BridgeVoiceJoin: "BRIDGE_VOICE_JOIN",
   BridgeVoiceLeave: "BRIDGE_VOICE_LEAVE",
   BridgePresence: "BRIDGE_PRESENCE",
+  BridgeMemberAdd: "BRIDGE_MEMBER_ADD",
+  BridgeMemberRemove: "BRIDGE_MEMBER_REMOVE",
 
   // Space Bans
   SpaceBanAdd: "SPACE_BAN_ADD",

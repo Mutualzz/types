@@ -12,13 +12,23 @@ export type PresenceActivityEmoji = {
     animated?: boolean;
 };
 
+export type PresenceActivityAssets = {
+    largeImageUrl?: string;
+    largeText?: string;
+    smallImageUrl?: string;
+    smallText?: string;
+};
+
 export type PresenceActivity = {
     type: PresenceActivityType;
     name: string;
+    applicationId?: string;
     details?: string;
     state?: string;
+    url?: string;
     emoji?: PresenceActivityEmoji;
     timestamps?: { start?: number; end?: number };
+    assets?: PresenceActivityAssets;
 };
 
 export type PresencePayload = {

@@ -204,4 +204,11 @@ export const CDNRoutes = {
     ) {
         return `/profiles/${userId}/fonts/${hash}.${format}` as const;
     },
+
+    appIcon(id: string, size: Sizes = 64) {
+        const params = new URLSearchParams();
+        if (size) params.set("size", size.toString());
+        const query = params.toString();
+        return `/app-icons/${id}.png${query ? `?${query}` : ""}` as const;
+    },
 };

@@ -79,6 +79,9 @@ export type APIUserSettings = {
   pushDirectMessages: boolean;
   pushMentions: boolean;
 
+  shareActivity: boolean;
+  shareRecentActivity: boolean;
+
   updatedAt: Date;
 };
 
@@ -744,7 +747,8 @@ export type ProfileBlockType =
   | "divider"
   | "quote"
   | "draw"
-  | "sticker";
+  | "sticker"
+  | "connections";
 
 export interface ProfileLinkItem {
   label: string;
@@ -764,6 +768,10 @@ export interface ProfileActivityBlock extends ProfileBlockBase {
 export interface ProfileRolesBlock extends ProfileBlockBase {
   type: "roles";
   maxRoles?: number;
+}
+
+export interface ProfileConnectionsBlock extends ProfileBlockBase {
+  type: "connections";
 }
 
 export interface ProfileMutualBlock extends ProfileBlockBase {
@@ -855,6 +863,7 @@ export type APIProfileBlock =
   | ProfileLinksBlock
   | ProfileActivityBlock
   | ProfileRolesBlock
+  | ProfileConnectionsBlock
   | ProfileMutualBlock
   | ProfileDividerBlock
   | ProfileQuoteBlock
@@ -916,6 +925,10 @@ export interface MobileProfileRolesBlock extends MobileProfileBlockBase {
   maxRoles?: number;
 }
 
+export interface MobileProfileConnectionsBlock extends MobileProfileBlockBase {
+  type: "connections";
+}
+
 export interface MobileProfileMutualBlock extends MobileProfileBlockBase {
   type: "mutual";
   mode: "spaces" | "friends";
@@ -954,6 +967,7 @@ export type APIMobileProfileBlock =
   | MobileProfileLinksBlock
   | MobileProfileActivityBlock
   | MobileProfileRolesBlock
+  | MobileProfileConnectionsBlock
   | MobileProfileMutualBlock
   | MobileProfileDividerBlock
   | MobileProfileQuoteBlock
