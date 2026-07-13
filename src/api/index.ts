@@ -82,6 +82,21 @@ export type APIUserSettings = {
   shareActivity: boolean;
   shareRecentActivity: boolean;
 
+  lastSeenChangelogId?: Snowflake | null;
+
+  updatedAt: Date;
+};
+
+export type APIChangelog = {
+  id: Snowflake;
+  title: string;
+  body: string;
+  imageUrl?: string | null;
+  authorId: Snowflake;
+  desktopVersion?: string | null;
+  mobileVersion?: string | null;
+  publishedAt: Date;
+  createdAt: Date;
   updatedAt: Date;
 };
 
@@ -805,6 +820,7 @@ export interface ProfileBlockBase {
   height: number;
   zIndex: number;
   cornerRadius?: number;
+  backgroundColor?: string | null;
 }
 
 export interface ProfileHeaderBlock extends ProfileBlockBase {
@@ -878,6 +894,7 @@ export interface MobileProfileBlockBase {
   size: ProfileBlockSize;
   order: number;
   cornerRadius?: number;
+  backgroundColor?: string | null;
 }
 
 export interface MobileProfileHeaderBlock extends MobileProfileBlockBase {

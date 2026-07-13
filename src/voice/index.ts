@@ -31,6 +31,7 @@ export const VoiceOpcodes = {
   VoiceResumeConsumer: 6,
   VoiceCloseProducer: 7,
   VoiceLeave: 8,
+  VoiceAuthenticate: 9,
 } as const;
 
 export type VoiceOpcode = (typeof VoiceOpcodes)[keyof typeof VoiceOpcodes];

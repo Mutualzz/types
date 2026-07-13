@@ -74,6 +74,8 @@ export type StaffActionType =
     | `user.flag.${string}.${"grant" | "revoke"}`
     | `content.takedown.${Exclude<ReportTargetType, "user">}`
     | "report.view"
+    | "changelog.publish"
+    | "changelog.delete"
     | "space.delete"
     | "space.lockdown"
     | "space.lockdown_lift";
