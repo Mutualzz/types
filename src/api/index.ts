@@ -18,6 +18,7 @@ import {
   type SupportTicketStatus,
   type ThemeStyle,
   type ThemeType,
+  type ThemeWallpaper,
 } from "../common";
 import type { PresencePayload } from "../presence"; // Theme types (we shouldn't export these individually, since we already do it in ui-core)
 
@@ -469,6 +470,8 @@ export type APISpace = {
   flags: bigint;
   description?: string | null;
   icon?: string | null;
+  themeId?: string | null;
+  theme?: APITheme | null;
   vanityCode?: string | null;
   members?: APISpaceMember[] | null;
   channels?: APIChannel[] | null;
@@ -746,8 +749,12 @@ export type APITheme = {
   createdAt?: Date;
   updatedAt?: Date;
 
+  backgroundImage?: string | null;
+  wallpaper?: ThemeWallpaper | null;
+
   authorId?: Snowflake | null;
   author?: APIUser | null;
+  spaceId?: Snowflake | null;
 };
 
 export type ProfileBlockType =

@@ -205,6 +205,23 @@ export const CDNRoutes = {
         return `/profiles/${userId}/fonts/${hash}.${format}` as const;
     },
 
+    themeBackground(
+        themeId: Snowflake,
+        hash: string,
+        format: AvatarFormat = ImageFormat.WebP,
+        size: Sizes = 1024,
+        animated = false,
+    ) {
+        const params = new URLSearchParams();
+
+        if (format) params.set("format", format);
+        if (size) params.set("size", size.toString());
+        if (animated) params.set("animated", "true");
+
+        const query = params.toString();
+        return `/themes/${themeId}/background/${hash}.${format}${query ? `?${query}` : ""}` as const;
+    },
+
     appIcon(id: string, size: Sizes = 64) {
         const params = new URLSearchParams();
         if (size) params.set("size", size.toString());
