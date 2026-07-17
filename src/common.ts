@@ -41,6 +41,19 @@ export type EmbedType = "rich" | "gifv" | "post";
 
 export type ThemeType = "light" | "dark";
 export type ThemeStyle = "normal" | "gradient";
+
+export type ThemeWallpaper = {
+  brightness?: number;
+  saturation?: number;
+  overlay?: number;
+  chrome?: number;
+  content?: number;
+  card?: number;
+  popout?: number;
+  composer?: number;
+  blur?: number;
+};
+
 export type AppMode = "spaces" | "feed" | "@me";
 
 export type Snowflake = string;
