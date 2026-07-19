@@ -1,12 +1,14 @@
 import type {
   APIChannel,
   APIExpression,
+  APIMinecraftLink,
   APIPrivateUser,
   APIReadState,
   APIRelationship,
   APISpace,
   APISpaceMember,
   APITheme,
+  APIUser,
   APIUserProfile,
   APIUserSettings,
 } from "../api";
@@ -15,6 +17,8 @@ import type {
   PresencePayload,
   PresenceSchedule,
 } from "../presence";
+import type { APICall } from "../call";
+import type { VoiceState } from "../voice";
 
 export const GatewayOpcodes = {
   Dispatch: 0,
@@ -35,6 +39,8 @@ export const GatewayOpcodes = {
   UnsubscribeUser: 15,
   CustomStatusScheduleSet: 16,
   CustomStatusScheduleClear: 17,
+  CallCreate: 18,
+  CallRespond: 19,
 } as const;
 
 export const GatewayDispatchEvents = {
@@ -101,6 +107,11 @@ export const GatewayDispatchEvents = {
   VoiceServerUpdate: "VOICE_SERVER_UPDATE",
   VoiceStateSync: "VOICE_STATE_SYNC",
   VoiceStateUpdate: "VOICE_STATE_UPDATE",
+
+  // Calls
+  CallCreate: "CALL_CREATE",
+  CallUpdate: "CALL_UPDATE",
+  CallDelete: "CALL_DELETE",
 
   // Expressions
   ExpressionCreate: "EXPRESSION_CREATE",
@@ -208,6 +219,10 @@ export type GatewayReadyPayload = {
   profile: APIUserProfile | null;
   presenceSchedule: PresenceSchedule | null;
   customStatusSchedule: CustomStatusSchedule | null;
+  calls?: APICall[];
+  voiceStates?: VoiceState[];
+  users?: APIUser[];
+  minecraftLink?: APIMinecraftLink | null;
 };
 
 export interface GatewaySpaceMember extends APISpaceMember {

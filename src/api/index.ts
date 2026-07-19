@@ -113,6 +113,7 @@ export type APIPrivateUser = {
   email: string;
   flags: bigint;
   globalName?: string | null;
+  pronouns?: string | null;
   dateOfBirth: string;
   avatar?: string | null;
   accentColor: string;
@@ -1033,9 +1034,17 @@ export type APIUserProfile = {
   backgroundImage?: string | null;
   banner?: string | null;
   bio?: string | null;
+  pronouns?: string | null;
   pageFontFamily?: string | null;
   profileMusic?: APIProfileMusic | null;
   blocks: APIProfileBlock[];
   mobileBlocks: APIMobileProfileBlock[];
   updatedAt: Date;
+};
+
+export type APIMinecraftLink = {
+  minecraftUuid: string;
+  minecraftName: string;
+  discordId: string | null;
+  createdAt: Date | string;
 };

@@ -5,3 +5,4 @@ export * from "./gateway";
 export * from "./rest";
 export * from "./presence";
 export * from "./voice";
+export * from "./call";

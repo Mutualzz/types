@@ -21,6 +21,8 @@ export enum MessageType {
     Default = 0,
     Reply = 1,
     System = 2,
+    CallMissed = 3,
+    CallEnded = 4,
     Unhandled = 255,
 }
 
