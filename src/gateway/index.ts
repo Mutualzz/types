@@ -12,6 +12,7 @@ import type {
   APIUserProfile,
   APIUserSettings,
 } from "../api";
+import type { APISpaceNotificationSettings } from "../notifications";
 import type {
   CustomStatusSchedule,
   PresencePayload,
@@ -79,6 +80,8 @@ export const GatewayDispatchEvents = {
   // Messages
   MessageAck: "MESSAGE_ACK",
   MessageAckBulk: "MESSAGE_ACK_BULK",
+  ReadStateUpdate: "READ_STATE_UPDATE",
+  SpaceNotificationSettingsUpdate: "SPACE_NOTIFICATION_SETTINGS_UPDATE",
   MessageCreate: "MESSAGE_CREATE",
   MessageUpdate: "MESSAGE_UPDATE",
   MessageDelete: "MESSAGE_DELETE",
@@ -215,6 +218,7 @@ export type GatewayReadyPayload = {
   relationships: APIRelationship[];
   expressions: APIExpression[];
   readStates: APIReadState[];
+  spaceNotificationSettings?: APISpaceNotificationSettings[];
   mergedPresences: Record<string, PresencePayload>;
   profile: APIUserProfile | null;
   presenceSchedule: PresenceSchedule | null;
