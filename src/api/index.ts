@@ -1,3 +1,4 @@
+import type { NotificationLevel } from "../notifications";
 import {
   type AppealStatus,
   type AppMode,
@@ -20,7 +21,8 @@ import {
   type ThemeType,
   type ThemeWallpaper,
 } from "../common";
-import type { PresencePayload } from "../presence"; // Theme types (we shouldn't export these individually, since we already do it in ui-core)
+import type { PresencePayload } from "../presence";
+import type { UserExtendedSettings } from "../userPreferences";
 
 // Theme types (we shouldn't export these individually, since we already do it in ui-core)
 type LinearGradient = `linear-gradient(${string})`;
@@ -85,6 +87,8 @@ export type APIUserSettings = {
 
   lastSeenChangelogId?: Snowflake | null;
 
+  extendedSettings?: UserExtendedSettings | null;
+
   updatedAt: Date;
 };
 
@@ -134,6 +138,8 @@ export type APIReadState = {
   lastPinTimestamp: Date | null;
   flags: bigint;
   type: ReadStateType;
+  notificationLevel: NotificationLevel | null;
+  mutedUntil: Date | string | null;
 };
 
 export type APISpacePartial = Pick<
@@ -208,7 +214,9 @@ export type APIUser = Omit<
   | "dateOfBirth"
   | "restrictedUntil"
   | "restrictionReason"
->;
+> & {
+  viewerCanDm?: boolean;
+};
 
 export type APIStaffAction = {
   id: Snowflake;
@@ -233,6 +241,13 @@ export type APIStaffSession = {
   sessionId: string;
   createdAt: number;
   lastUsedAt: number;
+};
+
+export type APIMeSession = {
+  sessionId: string;
+  createdAt: number;
+  lastUsedAt: number;
+  current: boolean;
 };
 
 export type APIStaffNote = {
@@ -655,6 +670,7 @@ export type APIAttachment = {
   url: string;
   width?: number | null;
   height?: number | null;
+  spoiler?: boolean;
 };
 
 export type APIMessage = {

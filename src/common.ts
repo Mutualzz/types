@@ -58,6 +58,15 @@ export type ThemeWallpaper = {
 
 export type AppMode = "spaces" | "feed" | "@me";
 
+export type ModeKey = "dms" | "spaces" | "feed";
+
+export function modeKeyFromPath(pathname: string): ModeKey | null {
+  if (pathname.startsWith("/@me")) return "dms";
+  if (pathname.startsWith("/spaces")) return "spaces";
+  if (pathname.startsWith("/feed")) return "feed";
+  return null;
+}
+
 export type Snowflake = string;
 
 export type ReportTargetType = "message" | "post" | "comment" | "user" | "space";
