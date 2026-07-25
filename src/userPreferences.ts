@@ -110,9 +110,10 @@ export function mergeExtendedSettings(
     ...DEFAULT_EXTENDED_SETTINGS,
     ...(partial ?? {}),
     timestampFormat,
-    quickReactionEmojis: partial?.quickReactionEmojis
-      ? [...partial.quickReactionEmojis]
-      : [...DEFAULT_EXTENDED_SETTINGS.quickReactionEmojis],
+    quickReactionEmojis: (partial?.quickReactionEmojis ??
+      DEFAULT_EXTENDED_SETTINGS.quickReactionEmojis).filter(
+      (key): key is string => typeof key === "string" && key.length > 0,
+    ),
   };
 }
 
