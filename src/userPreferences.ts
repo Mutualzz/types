@@ -48,7 +48,7 @@ export const BADGE_COLOR_PRESETS = [
   "#fd7e14",
 ] as const;
 
-export type UserExtendedSettings = {
+export interface ClientPreferences {
   convertEmoticons: boolean;
   uiDensity: UiDensity;
   messageDisplay: MessageDisplay;
@@ -65,16 +65,13 @@ export type UserExtendedSettings = {
   showGifPicker: boolean;
   showStickerPicker: boolean;
   showMarkdownToolbar: boolean;
-  whoCanDm: DmPrivacy;
-  profileVisibility: ProfileVisibility;
   reducedMotion: boolean;
   highContrast: boolean;
   defaultMemberListVisible: boolean;
-  shareRpcPresence: boolean;
-  autoCheckUpdates: boolean;
-};
+  showRoleColorsInMessages: boolean;
+}
 
-export const DEFAULT_EXTENDED_SETTINGS: UserExtendedSettings = {
+export const DEFAULT_CLIENT_PREFERENCES: ClientPreferences = {
   convertEmoticons: true,
   uiDensity: "default",
   messageDisplay: "default",
@@ -91,30 +88,81 @@ export const DEFAULT_EXTENDED_SETTINGS: UserExtendedSettings = {
   showGifPicker: true,
   showStickerPicker: true,
   showMarkdownToolbar: true,
-  whoCanDm: "everyone",
-  profileVisibility: "everyone",
   reducedMotion: false,
   highContrast: false,
   defaultMemberListVisible: true,
+  showRoleColorsInMessages: false,
+};
+
+export type UserExtendedSettings = ClientPreferences & {
+  whoCanDm: DmPrivacy;
+  profileVisibility: ProfileVisibility;
+  shareRpcPresence: boolean;
+  autoCheckUpdates: boolean;
+};
+
+export const DEFAULT_EXTENDED_SETTINGS: UserExtendedSettings = {
+  ...DEFAULT_CLIENT_PREFERENCES,
+  whoCanDm: "everyone",
+  profileVisibility: "everyone",
   shareRpcPresence: true,
   autoCheckUpdates: true,
 };
 
-export function mergeExtendedSettings(
-  partial?: Partial<UserExtendedSettings> | null,
-): UserExtendedSettings {
+export function mergeClientPreferences(
+  partial?: Partial<ClientPreferences> | Record<string, unknown> | null,
+): ClientPreferences {
+  const source = partial ?? {};
   const timestampFormat =
-    partial?.timestampFormat === "absolute" ? "absolute" : "relative";
+    source.timestampFormat === "absolute" ? "absolute" : "relative";
+  const quickReactionEmojis = Array.isArray(source.quickReactionEmojis)
+    ? source.quickReactionEmojis
+    : DEFAULT_CLIENT_PREFERENCES.quickReactionEmojis;
 
   return {
-    ...DEFAULT_EXTENDED_SETTINGS,
-    ...(partial ?? {}),
+    ...DEFAULT_CLIENT_PREFERENCES,
+    ...source,
     timestampFormat,
-    quickReactionEmojis: (partial?.quickReactionEmojis ??
-      DEFAULT_EXTENDED_SETTINGS.quickReactionEmojis).filter(
+    quickReactionEmojis: quickReactionEmojis.filter(
       (key): key is string => typeof key === "string" && key.length > 0,
     ),
   };
+}
+
+export function mergeExtendedSettings(
+  partial?: Partial<UserExtendedSettings> | Record<string, unknown> | null,
+): UserExtendedSettings {
+  const preferences = mergeClientPreferences(partial);
+  const whoCanDm =
+    partial?.whoCanDm === "friends" || partial?.whoCanDm === "nobody"
+      ? partial.whoCanDm
+      : "everyone";
+  const profileVisibility =
+    partial?.profileVisibility === "friends" ||
+    partial?.profileVisibility === "nobody"
+      ? partial.profileVisibility
+      : "everyone";
+
+  return {
+    ...preferences,
+    whoCanDm,
+    profileVisibility,
+    shareRpcPresence:
+      typeof partial?.shareRpcPresence === "boolean"
+        ? partial.shareRpcPresence
+        : true,
+    autoCheckUpdates:
+      typeof partial?.autoCheckUpdates === "boolean"
+        ? partial.autoCheckUpdates
+        : true,
+  };
+}
+
+export function applyClientPreferencesInPlace(
+  target: ClientPreferences,
+  patch: Partial<ClientPreferences>,
+): ClientPreferences {
+  return Object.assign(target, mergeClientPreferences({ ...target, ...patch }));
 }
 
 export function applyExtendedSettingsInPlace(

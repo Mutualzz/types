@@ -4,12 +4,12 @@ import {
   type AppMode,
   type ChannelType,
   type EmbedType,
-  ExpressionType,
+  type ExpressionType,
   type InviteType,
   type MentionType,
   type MessageType,
-  ReadStateType,
-  RelationshipType,
+  type ReadStateType,
+  type RelationshipType,
   type ReportReason,
   type ReportStatus,
   type ReportTargetType,
@@ -22,7 +22,11 @@ import {
   type ThemeWallpaper,
 } from "../common";
 import type { PresencePayload } from "../presence";
-import type { UserExtendedSettings } from "../userPreferences";
+import type {
+  ClientPreferences,
+  DmPrivacy,
+  ProfileVisibility,
+} from "../userPreferences";
 
 // Theme types (we shouldn't export these individually, since we already do it in ui-core)
 type LinearGradient = `linear-gradient(${string})`;
@@ -67,7 +71,6 @@ interface TypographyLevelObj {
 export type APIUserSettings = {
   currentTheme?: string | null;
   currentIcon?: string | null;
-  preferredMode: AppMode;
   preferEmbossed: boolean;
   spacePositions: Snowflake[];
 
@@ -87,12 +90,13 @@ export type APIUserSettings = {
 
   lastSeenChangelogId?: Snowflake | null;
 
-  extendedSettings?: UserExtendedSettings | null;
-
+  whoCanDm: DmPrivacy;
+  profileVisibility: ProfileVisibility;
+} & ClientPreferences & {
   updatedAt: Date;
 };
 
-export type APIChangelog = {
+export interface APIChangelog {
   id: Snowflake;
   title: string;
   body: string;
@@ -103,9 +107,9 @@ export type APIChangelog = {
   publishedAt: Date;
   createdAt: Date;
   updatedAt: Date;
-};
+}
 
-export type APIPrivateUser = {
+export interface APIPrivateUser {
   id: Snowflake;
   username: string;
   defaultAvatar: {
@@ -126,9 +130,10 @@ export type APIPrivateUser = {
   createdAt: Date;
   updatedAt: Date;
   presence?: PresencePayload;
-};
+  discordId?: string | null;
+}
 
-export type APIReadState = {
+export interface APIReadState {
   id: string;
   lastMessageId: string | null;
   lastAckedId: string | null;
@@ -140,14 +145,14 @@ export type APIReadState = {
   type: ReadStateType;
   notificationLevel: NotificationLevel | null;
   mutedUntil: Date | string | null;
-};
+}
 
 export type APISpacePartial = Pick<
   APISpace,
   "id" | "name" | "icon" | "description"
 >;
 
-export type APIMessageEmbed = {
+export interface APIMessageEmbed {
   title?: string | null;
   description?: string;
   url?: string;
@@ -190,9 +195,9 @@ export type APIMessageEmbed = {
     hashtags?: APIHashtag[];
     createdAt: Date;
   } | null;
-};
+}
 
-export type APICodedLink = {
+export interface APICodedLink {
   type: InviteType;
   code: string;
   space?: APISpacePartial | null;
@@ -202,7 +207,7 @@ export type APICodedLink = {
   approximateMemberCount?: number | null;
   approximatePresenceCount?: number | null;
   expiresAt?: Date | null;
-};
+}
 
 export type APICodedLinkInput = Pick<APICodedLink, "type" | "code">;
 
@@ -218,7 +223,7 @@ export type APIUser = Omit<
   viewerCanDm?: boolean;
 };
 
-export type APIStaffAction = {
+export interface APIStaffAction {
   id: Snowflake;
   action: StaffActionType;
   reason?: string | null;
@@ -235,22 +240,22 @@ export type APIStaffAction = {
     globalName?: string | null;
     avatar?: string | null;
   } | null;
-};
+}
 
-export type APIStaffSession = {
+export interface APIStaffSession {
   sessionId: string;
   createdAt: number;
   lastUsedAt: number;
-};
+}
 
-export type APIMeSession = {
+export interface APIMeSession {
   sessionId: string;
   createdAt: number;
   lastUsedAt: number;
   current: boolean;
-};
+}
 
-export type APIStaffNote = {
+export interface APIStaffNote {
   id: Snowflake;
   content: string;
   createdAt: Date;
@@ -260,9 +265,9 @@ export type APIStaffNote = {
     globalName?: string | null;
     avatar?: string | null;
   };
-};
+}
 
-export type APIReport = {
+export interface APIReport {
   id: Snowflake;
   targetType: ReportTargetType;
   targetId: Snowflake;
@@ -283,35 +288,35 @@ export type APIReport = {
     globalName?: string | null;
     avatar?: string | null;
   } | null;
-};
+}
 
-export type APIReportContentUser = {
+export interface APIReportContentUser {
   id: Snowflake;
   username: string;
   globalName?: string | null;
   avatar?: string | null;
-};
+}
 
-export type APIReportMessageContent = {
+export interface APIReportMessageContent {
   reported: APIMessage;
   context: APIMessage[];
   channelType: ChannelType;
   isDirectMessage: boolean;
-};
+}
 
-export type APIReportPostContent = {
+export interface APIReportPostContent {
   post: APIPost;
-};
+}
 
-export type APIReportCommentContent = {
+export interface APIReportCommentContent {
   comment: APIPostComment;
-};
+}
 
-export type APIReportUserContent = {
+export interface APIReportUserContent {
   user: APIReportContentUser;
-};
+}
 
-export type APIReportSpaceContent = {
+export interface APIReportSpaceContent {
   space: Pick<
     APISpace,
     | "id"
@@ -325,7 +330,7 @@ export type APIReportSpaceContent = {
   > & {
     owner?: APIReportContentUser | null;
   };
-};
+}
 
 export type APIReportContent =
   | { type: "message"; data: APIReportMessageContent }
@@ -339,7 +344,7 @@ export type APIReportDetail = APIReport & {
   content: APIReportContent;
 };
 
-export type APIAppeal = {
+export interface APIAppeal {
   id: Snowflake;
   message: string;
   status: AppealStatus;
@@ -363,24 +368,24 @@ export type APIAppeal = {
     globalName?: string | null;
     avatar?: string | null;
   } | null;
-};
+}
 
-export type APISupportUser = {
+export interface APISupportUser {
   id: Snowflake;
   username: string;
   globalName?: string | null;
   avatar?: string | null;
-};
+}
 
-export type APISupportMessage = {
+export interface APISupportMessage {
   id: Snowflake;
   body: string;
   isStaff: boolean;
   createdAt: Date;
   author: APISupportUser;
-};
+}
 
-export type APISupportTicket = {
+export interface APISupportTicket {
   id: Snowflake;
   category: SupportTicketCategory;
   subject: string;
@@ -392,13 +397,13 @@ export type APISupportTicket = {
   closedAt?: Date | null;
   user: APISupportUser;
   assignedTo?: APISupportUser | null;
-};
+}
 
 export type APISupportTicketDetail = APISupportTicket & {
   messages: APISupportMessage[];
 };
 
-export type APIChannelPermissionOverwrite = {
+export interface APIChannelPermissionOverwrite {
   channelId: Snowflake;
   spaceId: Snowflake;
 
@@ -410,14 +415,14 @@ export type APIChannelPermissionOverwrite = {
 
   createdAt: Date;
   updatedAt: Date;
-};
+}
 
-export type APIHashtag = {
+export interface APIHashtag {
   id: Snowflake;
   tag: string;
-};
+}
 
-export type APIPost = {
+export interface APIPost {
   id: Snowflake;
 
   authorId: Snowflake;
@@ -444,9 +449,9 @@ export type APIPost = {
 
   createdAt: Date;
   updatedAt?: Date;
-};
+}
 
-export type APIPostComment = {
+export interface APIPostComment {
   id: Snowflake;
 
   postId: Snowflake;
@@ -466,9 +471,9 @@ export type APIPostComment = {
 
   createdAt: Date;
   updatedAt?: Date;
-};
+}
 
-export type APISpaceBan = {
+export interface APISpaceBan {
   spaceId: Snowflake;
   userId: Snowflake;
   user?: APIUser;
@@ -476,9 +481,9 @@ export type APISpaceBan = {
   bannedBy?: APIUser;
   reason: string;
   createdAt: Date;
-};
+}
 
-export type APISpace = {
+export interface APISpace {
   id: Snowflake;
   name: string;
   ownerId: Snowflake;
@@ -496,9 +501,9 @@ export type APISpace = {
   memberCount: number;
   createdAt: Date;
   updatedAt: Date;
-};
+}
 
-export type APIRole = {
+export interface APIRole {
   id: Snowflake;
   name: string;
   spaceId: Snowflake;
@@ -512,16 +517,16 @@ export type APIRole = {
   mentionable: boolean;
   createdAt: Date;
   updatedAt: Date;
-};
+}
 
-export type APIMemberRole = {
+export interface APIMemberRole {
   spaceId: Snowflake;
   userId: Snowflake;
   roleId: Snowflake;
   role?: APIRole | null;
-};
+}
 
-export type APIInvite = {
+export interface APIInvite {
   id: Snowflake;
   type: InviteType;
 
@@ -548,9 +553,9 @@ export type APIInvite = {
 
   approximateMemberCount?: number | null;
   approximateActiveCount?: number | null;
-};
+}
 
-export type APIExpression = {
+export interface APIExpression {
   id: Snowflake;
   type: ExpressionType;
   name: string;
@@ -560,9 +565,9 @@ export type APIExpression = {
   animated: boolean;
   flags: bigint;
   createdAt: Date;
-};
+}
 
-export type APIChannel = {
+export interface APIChannel {
   id: Snowflake;
   type: ChannelType;
 
@@ -598,9 +603,9 @@ export type APIChannel = {
   updatedAt: Date;
 
   icon?: string | null;
-};
+}
 
-export type APIRelationship = {
+export interface APIRelationship {
   id: Snowflake;
   userId: Snowflake;
   otherUserId: Snowflake;
@@ -609,29 +614,29 @@ export type APIRelationship = {
   note: string | null;
   createdAt: Date;
   updatedAt: Date;
-};
+}
 
 export type APIRelationshipWithUser = APIRelationship & {
   user?: APIUser | null;
   otherUser?: APIUser | null;
 };
 
-export type APIMessageMention = {
+export interface APIMessageMention {
   type: MentionType;
   id: Snowflake;
-};
+}
 
 export type APIMessageReactionEmoji =
   | { type: "unicode"; value: string }
   | { type: "expression"; expression: APIExpression };
 
-export type APIMessageReaction = {
+export interface APIMessageReaction {
   emoji: APIMessageReactionEmoji;
   count: number;
   me: boolean;
-};
+}
 
-export type APIMessageReactionEvent = {
+export interface APIMessageReactionEvent {
   channelId: Snowflake;
   messageId: Snowflake;
   spaceId?: Snowflake | null;
@@ -639,30 +644,30 @@ export type APIMessageReactionEvent = {
   user?: APIUser | null;
   emoji: APIMessageReactionEmoji;
   messageAuthorId?: Snowflake;
-};
+}
 
-export type APIMessageReactionRemoveEvent = {
+export interface APIMessageReactionRemoveEvent {
   channelId: Snowflake;
   messageId: Snowflake;
   spaceId?: Snowflake | null;
   userId: Snowflake;
   emoji: APIMessageReactionEmoji;
-};
+}
 
-export type APIMessageReactionRemoveEmojiEvent = {
+export interface APIMessageReactionRemoveEmojiEvent {
   channelId: Snowflake;
   messageId: Snowflake;
   spaceId?: Snowflake | null;
   emoji: APIMessageReactionEmoji;
-};
+}
 
-export type APIMessageReactionRemoveAllEvent = {
+export interface APIMessageReactionRemoveAllEvent {
   channelId: Snowflake;
   messageId: Snowflake;
   spaceId?: Snowflake | null;
-};
+}
 
-export type APIAttachment = {
+export interface APIAttachment {
   id: Snowflake;
   filename: string;
   size: number;
@@ -671,9 +676,9 @@ export type APIAttachment = {
   width?: number | null;
   height?: number | null;
   spoiler?: boolean;
-};
+}
 
-export type APIMessage = {
+export interface APIMessage {
   id: Snowflake;
   type: MessageType;
 
@@ -706,9 +711,13 @@ export type APIMessage = {
   nonce?: Snowflake | null;
   mentions?: APIMessageMention[];
   reactions?: APIMessageReaction[];
-};
+  pinned?: boolean;
+  pinnedAt?: Date | null;
+  pinnedBy?: Snowflake | null;
+  pinnedByUser?: APIUser | null;
+}
 
-export type APISpaceMember = {
+export interface APISpaceMember {
   spaceId: Snowflake;
   space?: APISpace | null;
 
@@ -724,9 +733,9 @@ export type APISpaceMember = {
 
   joinedAt: Date;
   updatedAt: Date;
-};
+}
 
-export type APITheme = {
+export interface APITheme {
   id: Snowflake;
   name: string;
   description?: string | null;
@@ -772,7 +781,7 @@ export type APITheme = {
   authorId?: Snowflake | null;
   author?: APIUser | null;
   spaceId?: Snowflake | null;
-};
+}
 
 export type ProfileBlockType =
   | "header"
@@ -1015,12 +1024,12 @@ export type APIMobileProfileBlock =
   | MobileProfileDrawBlock
   | MobileProfileStickerBlock;
 
-export type APIProfileMusicTrackRef = {
+export interface APIProfileMusicTrackRef {
   source: "itunes" | "deezer";
   id: string;
-};
+}
 
-export type APIProfileMusicSearchTrack = {
+export interface APIProfileMusicSearchTrack {
   source: "itunes" | "deezer";
   id: string;
   name: string;
@@ -1028,9 +1037,9 @@ export type APIProfileMusicSearchTrack = {
   image?: string | null;
   previewUrl?: string | null;
   trackUrl: string;
-};
+}
 
-export type APIProfileMusic = {
+export interface APIProfileMusic {
   url: string;
   title?: string | null;
   image?: string | null;
@@ -1041,9 +1050,9 @@ export type APIProfileMusic = {
   spotify?: APIMessageEmbed["spotify"];
   youtube?: APIMessageEmbed["youtube"];
   apple?: APIMessageEmbed["apple"];
-};
+}
 
-export type APIUserProfile = {
+export interface APIUserProfile {
   userId: Snowflake;
   configured: boolean;
   backgroundColor?: string | null;
@@ -1056,11 +1065,11 @@ export type APIUserProfile = {
   blocks: APIProfileBlock[];
   mobileBlocks: APIMobileProfileBlock[];
   updatedAt: Date;
-};
+}
 
-export type APIMinecraftLink = {
+export interface APIMinecraftLink {
   minecraftUuid: string;
   minecraftName: string;
   discordId: string | null;
   createdAt: Date | string;
-};
+}

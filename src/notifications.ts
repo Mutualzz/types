@@ -4,26 +4,26 @@ export enum NotificationLevel {
   Nothing = 2,
 }
 
-export type APISpaceNotificationSettings = {
+export interface APISpaceNotificationSettings {
   spaceId: string;
   level: NotificationLevel;
   mutedUntil: Date | string | null;
   suppressEveryone: boolean;
   suppressRoles: boolean;
-};
+}
 
-export type NotificationMessageContext = {
+export interface NotificationMessageContext {
   isDirectMention: boolean;
   isRoleMention: boolean;
   isEveryoneMention: boolean;
   isHereMention: boolean;
   isRegularMessage: boolean;
-};
+}
 
-export type NotificationSuppressOptions = {
+export interface NotificationSuppressOptions {
   suppressEveryone: boolean;
   suppressRoles: boolean;
-};
+}
 
 export const DEFAULT_NOTIFICATION_LEVEL = NotificationLevel.Mentions;
 

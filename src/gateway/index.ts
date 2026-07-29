@@ -208,7 +208,7 @@ export interface BaseEvent<T extends EVENT = EVENT, D = any> {
   data: D;
 }
 
-export type GatewayReadyPayload = {
+export interface GatewayReadyPayload {
   sessionId: string;
   user: APIPrivateUser;
   themes: APITheme[];
@@ -227,7 +227,7 @@ export type GatewayReadyPayload = {
   voiceStates?: VoiceState[];
   users?: APIUser[];
   minecraftLink?: APIMinecraftLink | null;
-};
+}
 
 export interface GatewaySpaceMember extends APISpaceMember {
   presence?: PresencePayload;
