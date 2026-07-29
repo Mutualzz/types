@@ -6,20 +6,20 @@ export type PresenceStatus =
     | "offline";
 export type PresenceActivityType = "playing" | "listening" | "custom";
 
-export type PresenceActivityEmoji = {
+export interface PresenceActivityEmoji {
     id?: string;
     name: string;
     animated?: boolean;
-};
+}
 
-export type PresenceActivityAssets = {
+export interface PresenceActivityAssets {
     largeImageUrl?: string;
     largeText?: string;
     smallImageUrl?: string;
     smallText?: string;
-};
+}
 
-export type PresenceActivity = {
+export interface PresenceActivity {
     type: PresenceActivityType;
     name: string;
     applicationId?: string;
@@ -29,16 +29,16 @@ export type PresenceActivity = {
     emoji?: PresenceActivityEmoji;
     timestamps?: { start?: number; end?: number };
     assets?: PresenceActivityAssets;
-};
+}
 
-export type PresencePayload = {
+export interface PresencePayload {
     status: PresenceStatus;
     activities: PresenceActivity[];
     afk?: boolean;
     since?: number;
     device?: "desktop" | "mobile" | "web";
     updatedAt: number;
-};
+}
 
 export interface PresenceSchedule {
     status: PresenceStatus;

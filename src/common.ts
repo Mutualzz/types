@@ -23,6 +23,7 @@ export enum MessageType {
     System = 2,
     CallMissed = 3,
     CallEnded = 4,
+    ChannelPinned = 5,
     Unhandled = 255,
 }
 
@@ -44,7 +45,7 @@ export type EmbedType = "rich" | "gifv" | "post";
 export type ThemeType = "light" | "dark";
 export type ThemeStyle = "normal" | "gradient";
 
-export type ThemeWallpaper = {
+export interface ThemeWallpaper {
   brightness?: number;
   saturation?: number;
   overlay?: number;
@@ -54,7 +55,7 @@ export type ThemeWallpaper = {
   popout?: number;
   composer?: number;
   blur?: number;
-};
+}
 
 export type AppMode = "spaces" | "feed" | "@me";
 

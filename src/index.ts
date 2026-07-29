@@ -1,6 +1,7 @@
 export * from "./common";
 
 export * from "./userPreferences";
+export * from "./settingsMapping";
 export * from "./api";
 export * from "./gateway";
 export * from "./rest";
