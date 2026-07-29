@@ -132,7 +132,7 @@ function readPrivacyValue<K extends "whoCanDm" | "profileVisibility">(
   }
 
   const stored = readStoredPreferences(row);
-  const jsonValue = stored?.[key];
+  const jsonValue = (stored as Record<string, unknown> | null)?.[key];
   if (jsonValue === "everyone" || jsonValue === "friends" || jsonValue === "nobody") {
     return jsonValue;
   }
