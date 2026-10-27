@@ -1,17 +1,27 @@
-# `@mutualzz/types`
+<div align="center">
+
+# Mutualzz development moved to [git.mutualzz.com](https://git.mutualzz.com/mutualzz/mutualzz)
+
+**GitHub is a read-only mirror. Issues and pull requests opened on GitHub are not monitored.**
+
+Sign in with your GitHub account. No new password needed.
+
+</div>
+
+# `Mutualzz Types`
 
 Shared TypeScript types and enums for Mutualzz — used by the desktop app, mobile app, server, and voice services so API / gateway contracts stay in sync.
 
 ## What’s in here
 
-| Area | Contents |
-|---|---|
-| **Common** | Core enums and aliases (`ChannelType`, `MessageType`, `InviteType`, relationships, embeds, …) |
-| **API** | REST / domain payload shapes |
-| **Gateway** | Gateway dispatch event names and payloads |
-| **REST** | REST route-oriented types |
-| **Presence** | Presence / status types |
-| **Voice** | Voice opcodes, credentials, and related types |
+| Area         | Contents                                                                                      |
+| ------------ | --------------------------------------------------------------------------------------------- |
+| **Common**   | Core enums and aliases (`ChannelType`, `MessageType`, `InviteType`, relationships, embeds, …) |
+| **API**      | REST / domain payload shapes                                                                  |
+| **Gateway**  | Gateway dispatch event names and payloads                                                     |
+| **REST**     | REST route-oriented types                                                                     |
+| **Presence** | Presence / status types                                                                       |
+| **Voice**    | Voice opcodes, credentials, and related types                                                 |
 
 Import from the package root:
 
