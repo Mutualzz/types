@@ -175,6 +175,7 @@ export const GatewayCloseCodes = {
   SessionTimedOut: 4000,
   InvalidSession: 4001,
   NotAuthenticated: 4002,
+  AuthenticationFailed: 4004,
   RateLimit: 4008,
   MissingPermissions: 4009,
   ForceLogout: 4010,
