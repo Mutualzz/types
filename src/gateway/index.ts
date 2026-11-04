@@ -42,6 +42,8 @@ export const GatewayOpcodes = {
   CustomStatusScheduleClear: 17,
   CallCreate: 18,
   CallRespond: 19,
+  InventorySubscribe: 20,
+  InventoryUnsubscribe: 21,
 } as const;
 
 export const GatewayDispatchEvents = {
@@ -136,6 +138,9 @@ export const GatewayDispatchEvents = {
   BridgePresence: "BRIDGE_PRESENCE",
   BridgeMemberAdd: "BRIDGE_MEMBER_ADD",
   BridgeMemberRemove: "BRIDGE_MEMBER_REMOVE",
+  BridgeInventoryUpdate: "BRIDGE_INVENTORY_UPDATE",
+  BridgeGameEvent: "BRIDGE_GAME_EVENT",
+  BridgeServerStatus: "BRIDGE_SERVER_STATUS",
 
   // Space Bans
   SpaceBanAdd: "SPACE_BAN_ADD",
