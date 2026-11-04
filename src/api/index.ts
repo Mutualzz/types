@@ -109,6 +109,19 @@ export interface APIChangelog {
   updatedAt: Date;
 }
 
+export interface APIPublicApplication {
+  id: Snowflake;
+  name: string;
+  icon?: string | null;
+}
+
+export interface APIApplication extends APIPublicApplication {
+  ownerId: Snowflake;
+  description?: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface APIPrivateUser {
   id: Snowflake;
   username: string;
@@ -183,6 +196,7 @@ export interface APIMessageEmbed {
   };
   image?: string | null;
   media?: string | null;
+  mediaSmall?: string | null;
   thumbnail?: string | null;
   spoiler?: boolean;
   type: EmbedType;

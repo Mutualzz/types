@@ -223,6 +223,21 @@ export const CDNRoutes = {
     return `/themes/${themeId}/background/${hash}.${format}${query ? `?${query}` : ""}` as const;
   },
 
+  applicationIcon(
+    applicationId: Snowflake,
+    hash: string,
+    format: AvatarFormat = ImageFormat.WebP,
+    size: Sizes = 128,
+  ) {
+    const params = new URLSearchParams();
+
+    if (format) params.set("format", format);
+    if (size) params.set("size", size.toString());
+
+    const query = params.toString();
+    return `/applications/${applicationId}/${hash}.${format}${query ? `?${query}` : ""}` as const;
+  },
+
   appIcon(id: string, size: Sizes = 64) {
     const params = new URLSearchParams();
     if (size) params.set("size", size.toString());
