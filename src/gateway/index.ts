@@ -44,6 +44,8 @@ export const GatewayOpcodes = {
   CallRespond: 19,
   InventorySubscribe: 20,
   InventoryUnsubscribe: 21,
+  InventoryEdit: 22,
+  InventoryEditCancel: 23,
 } as const;
 
 export const GatewayDispatchEvents = {
@@ -138,9 +140,13 @@ export const GatewayDispatchEvents = {
   BridgePresence: "BRIDGE_PRESENCE",
   BridgeMemberAdd: "BRIDGE_MEMBER_ADD",
   BridgeMemberRemove: "BRIDGE_MEMBER_REMOVE",
-  BridgeInventoryUpdate: "BRIDGE_INVENTORY_UPDATE",
   BridgeGameEvent: "BRIDGE_GAME_EVENT",
   BridgeServerStatus: "BRIDGE_SERVER_STATUS",
+  BridgeUpdate: "BRIDGE_UPDATE",
+  BridgeInventoryUpdate: "BRIDGE_INVENTORY_UPDATE",
+  BridgeInventoryEditUpdate: "BRIDGE_INVENTORY_EDIT_UPDATE",
+  BridgeInventoryEditAck: "BRIDGE_INVENTORY_EDIT_ACK",
+  BridgeInventoryEdits: "BRIDGE_INVENTORY_EDITS",
 
   // Space Bans
   SpaceBanAdd: "SPACE_BAN_ADD",
