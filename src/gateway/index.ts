@@ -46,6 +46,8 @@ export const GatewayOpcodes = {
   InventoryUnsubscribe: 21,
   InventoryEdit: 22,
   InventoryEditCancel: 23,
+  LyricsRequest: 24,
+  ActivityArtUpload: 25,
 } as const;
 
 export const GatewayDispatchEvents = {
@@ -176,6 +178,12 @@ export const GatewayDispatchEvents = {
   PostSaveRemove: "POST_SAVE_REMOVE",
   PostShareAdd: "POST_SHARE_ADD",
   PostShareRemove: "POST_SHARE_REMOVE",
+
+  // Lyrics
+  LyricsResult: "LYRICS_RESULT",
+
+  // Activity Art
+  ActivityArtResult: "ACTIVITY_ART_RESULT",
 } as const;
 
 export type EVENT = keyof typeof GatewayDispatchEvents;
