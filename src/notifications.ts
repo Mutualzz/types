@@ -1,7 +1,66 @@
+import type { APIAttachment, APICodedLinkInput, APIMessage } from "./api";
+
 export enum NotificationLevel {
   All = 0,
   Mentions = 1,
   Nothing = 2,
+}
+
+export interface APIMessageBookmark {
+  messageId: string;
+  channelId: string;
+  createdAt: string;
+}
+
+export interface APIMessageBookmarkWithMessage extends APIMessageBookmark {
+  message: APIMessage;
+}
+
+export interface APIMessageReminder {
+  messageId: string;
+  channelId: string;
+  remindAt: string;
+  firedAt: string | null;
+  createdAt: string;
+}
+
+export interface APIMessageReminderWithMessage extends APIMessageReminder {
+  message: APIMessage;
+}
+
+export type ScheduledMessageStatus = "pending" | "sending" | "failed";
+
+export interface APIScheduledMessage {
+  id: string;
+  channelId: string;
+  content: string | null;
+  repliedToId: string | null;
+  mentionReply: boolean;
+  expressionIds: string[];
+  sharedPostId: string | null;
+  codedLinks: APICodedLinkInput[];
+  attachments: APIAttachment[];
+  scheduledFor: string;
+  status: ScheduledMessageStatus;
+  failureReason: string | null;
+  createdAt: string;
+}
+
+export type NotificationType =
+  | "friend_accepted"
+  | "reminder"
+  | "scheduled_sent"
+  | "scheduled_failed";
+
+export interface APINotification {
+  id: string;
+  type: NotificationType;
+  actorId: string | null;
+  channelId: string | null;
+  messageId: string | null;
+  data: Record<string, string>;
+  createdAt: string;
+  readAt: string | null;
 }
 
 export interface APISpaceNotificationSettings {
@@ -88,7 +147,12 @@ export function shouldIncrementMentionCount(
   suppress: NotificationSuppressOptions,
 ): boolean {
   if (level === NotificationLevel.Nothing) return false;
-  if (!ctx.isDirectMention && !ctx.isRoleMention && !ctx.isEveryoneMention && !ctx.isHereMention) {
+  if (
+    !ctx.isDirectMention &&
+    !ctx.isRoleMention &&
+    !ctx.isEveryoneMention &&
+    !ctx.isHereMention
+  ) {
     return false;
   }
   if (ctx.isDirectMention) return true;

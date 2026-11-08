@@ -12,7 +12,12 @@ import type {
   APIUserProfile,
   APIUserSettings,
 } from "../api";
-import type { APISpaceNotificationSettings } from "../notifications";
+import type {
+  APIMessageReminder,
+  APINotification,
+  APIScheduledMessage,
+  APISpaceNotificationSettings,
+} from "../notifications";
 import type {
   CustomStatusSchedule,
   PresencePayload,
@@ -48,6 +53,19 @@ export const GatewayOpcodes = {
   InventoryEditCancel: 23,
   LyricsRequest: 24,
   ActivityArtUpload: 25,
+  BookmarkAdd: 26,
+  BookmarkRemove: 27,
+  BookmarkList: 28,
+  ReminderSet: 29,
+  ReminderDelete: 30,
+  ReminderList: 31,
+  ScheduledMessageEdit: 32,
+  ScheduledMessageDelete: 33,
+  NotificationList: 34,
+  NotificationMarkRead: 35,
+  NotificationDelete: 36,
+  MentionList: 37,
+  MentionDismiss: 38,
 } as const;
 
 export const GatewayDispatchEvents = {
@@ -184,6 +202,31 @@ export const GatewayDispatchEvents = {
 
   // Activity Art
   ActivityArtResult: "ACTIVITY_ART_RESULT",
+
+  // Bookmarks
+  MessageBookmarkCreate: "MESSAGE_BOOKMARK_CREATE",
+  MessageBookmarkDelete: "MESSAGE_BOOKMARK_DELETE",
+  MessageBookmarkAck: "MESSAGE_BOOKMARK_ACK",
+
+  // Reminders
+  MessageReminderUpdate: "MESSAGE_REMINDER_UPDATE",
+  MessageReminderDelete: "MESSAGE_REMINDER_DELETE",
+  MessageReminderAck: "MESSAGE_REMINDER_ACK",
+
+  // Scheduled messages
+  ScheduledMessageUpdate: "SCHEDULED_MESSAGE_UPDATE",
+  ScheduledMessageDelete: "SCHEDULED_MESSAGE_DELETE",
+  ScheduledMessageAck: "SCHEDULED_MESSAGE_ACK",
+
+  // Notifications
+  NotificationCreate: "NOTIFICATION_CREATE",
+  NotificationRead: "NOTIFICATION_READ",
+  NotificationDelete: "NOTIFICATION_DELETE",
+  NotificationAck: "NOTIFICATION_ACK",
+
+  // Mentions history
+  MentionDismiss: "MENTION_DISMISS",
+  MentionAck: "MENTION_ACK",
 } as const;
 
 export type EVENT = keyof typeof GatewayDispatchEvents;
@@ -247,6 +290,10 @@ export interface GatewayReadyPayload {
   voiceStates?: VoiceState[];
   users?: APIUser[];
   minecraftLink?: APIMinecraftLink | null;
+  bookmarkedMessageIds?: string[];
+  reminders?: APIMessageReminder[];
+  scheduledMessages?: APIScheduledMessage[];
+  unreadNotificationCount?: number;
 }
 
 export interface GatewaySpaceMember extends APISpaceMember {
