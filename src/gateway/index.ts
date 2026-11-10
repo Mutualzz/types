@@ -66,6 +66,8 @@ export const GatewayOpcodes = {
   NotificationDelete: 36,
   MentionList: 37,
   MentionDismiss: 38,
+  MentionClearAll: 39,
+  DiscordImportExecute: 40,
 } as const;
 
 export const GatewayDispatchEvents = {
@@ -226,8 +228,28 @@ export const GatewayDispatchEvents = {
 
   // Mentions history
   MentionDismiss: "MENTION_DISMISS",
+  MentionsCleared: "MENTIONS_CLEARED",
   MentionAck: "MENTION_ACK",
+
+  // Discord import
+  DiscordImportProgress: "DISCORD_IMPORT_PROGRESS",
+  DiscordImportAck: "DISCORD_IMPORT_ACK",
 } as const;
+
+export type DiscordImportStage =
+  | "fetching"
+  | "space"
+  | "channels"
+  | "roles"
+  | "emojis"
+  | "finishing";
+
+export interface DiscordImportProgressPayload {
+  nonce: string;
+  stage: DiscordImportStage;
+  completed: number;
+  total: number;
+}
 
 export type EVENT = keyof typeof GatewayDispatchEvents;
 

@@ -511,6 +511,7 @@ export interface APISpace {
   members?: APISpaceMember[] | null;
   channels?: APIChannel[] | null;
   roles?: APIRole[] | null;
+  expressions?: APIExpression[] | null;
   everyoneRoleId: Snowflake;
   memberCount: number;
   createdAt: Date;
