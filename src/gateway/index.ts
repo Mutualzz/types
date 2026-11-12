@@ -68,6 +68,7 @@ export const GatewayOpcodes = {
   MentionDismiss: 38,
   MentionClearAll: 39,
   DiscordImportExecute: 40,
+  RequestSpaceMembers: 41,
 } as const;
 
 export const GatewayDispatchEvents = {
@@ -234,6 +235,8 @@ export const GatewayDispatchEvents = {
   // Discord import
   DiscordImportProgress: "DISCORD_IMPORT_PROGRESS",
   DiscordImportAck: "DISCORD_IMPORT_ACK",
+
+  SpaceMembersChunk: "SPACE_MEMBERS_CHUNK",
 } as const;
 
 export type DiscordImportStage =
