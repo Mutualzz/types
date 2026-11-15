@@ -1,7 +1,6 @@
 import type { NotificationLevel } from "../notifications";
 import {
   type AppealStatus,
-  type AppMode,
   type ChannelType,
   type EmbedType,
   type ExpressionType,
@@ -93,8 +92,8 @@ export type APIUserSettings = {
   whoCanDm: DmPrivacy;
   profileVisibility: ProfileVisibility;
 } & ClientPreferences & {
-  updatedAt: Date;
-};
+    updatedAt: Date;
+  };
 
 export interface APIChangelog {
   id: Snowflake;
@@ -144,6 +143,7 @@ export interface APIPrivateUser {
   updatedAt: Date;
   presence?: PresencePayload;
   discordId?: string | null;
+  displayNameStyle?: APIDisplayNameStyle | null;
 }
 
 export interface APIReadState {
@@ -743,6 +743,8 @@ export interface APISpaceMember {
   nickname?: string | null;
   avatar?: string | null;
   banner?: string | null;
+  bio?: string | null;
+  pronouns?: string | null;
 
   roles?: APIMemberRole[];
 
@@ -811,6 +813,10 @@ export type ProfileBlockType =
   | "quote"
   | "draw"
   | "sticker"
+  | "countdown"
+  | "gallery"
+  | "nowPlaying"
+  | "embed"
   | "connections";
 
 export interface ProfileLinkItem {
@@ -826,6 +832,8 @@ export interface ProfileLinksBlock extends ProfileBlockBase {
 export interface ProfileActivityBlock extends ProfileBlockBase {
   type: "activity";
   showCustomStatus?: boolean;
+  showPlaying?: boolean;
+  showListening?: boolean;
 }
 
 export interface ProfileRolesBlock extends ProfileBlockBase {
@@ -869,6 +877,58 @@ export interface ProfileBlockBase {
   zIndex: number;
   cornerRadius?: number;
   backgroundColor?: string | null;
+  locked?: boolean;
+  hidden?: boolean;
+  visibility?: ProfileVisibility;
+  groupId?: string;
+  rotation?: number;
+  appearance?: ProfileBlockAppearance | null;
+}
+
+export const PROFILE_BLOCK_SHADOWS = ["soft", "strong", "glow"] as const;
+
+export type ProfileBlockShadow = (typeof PROFILE_BLOCK_SHADOWS)[number];
+
+export const PROFILE_BLOCK_BORDER_STYLES = [
+  "solid",
+  "dashed",
+  "dotted",
+] as const;
+
+export type ProfileBlockBorderStyle =
+  (typeof PROFILE_BLOCK_BORDER_STYLES)[number];
+
+export const PROFILE_BLOCK_TEXT_ALIGNS = ["left", "center", "right"] as const;
+
+export type ProfileBlockTextAlign = (typeof PROFILE_BLOCK_TEXT_ALIGNS)[number];
+
+export const PROFILE_BLOCK_ENTRANCES = [
+  "fade",
+  "slide",
+  "slideDown",
+  "slideLeft",
+  "slideRight",
+  "zoom",
+  "blur",
+  "flip",
+] as const;
+
+export type ProfileBlockEntrance = (typeof PROFILE_BLOCK_ENTRANCES)[number];
+
+export interface ProfileBlockAppearance {
+  borderWidth?: number;
+  borderStyle?: ProfileBlockBorderStyle;
+  borderColor?: string | null;
+  shadow?: ProfileBlockShadow | null;
+  shadowColor?: string | null;
+  opacity?: number;
+  blur?: number;
+  padding?: number;
+  textAlign?: ProfileBlockTextAlign;
+  font?: string | null;
+  entrance?: ProfileBlockEntrance;
+  textEffect?: DisplayNameEffect;
+  textEffectColor?: string | null;
 }
 
 export interface ProfileHeaderBlock extends ProfileBlockBase {
@@ -919,6 +979,66 @@ export interface ProfileStickerBlock extends ProfileBlockBase {
   expressionId: string;
 }
 
+export interface ProfileCountdownBlock extends ProfileBlockBase {
+  type: "countdown";
+  targetAt: string;
+  title?: string | null;
+}
+
+export interface ProfileNowPlayingBlock extends ProfileBlockBase {
+  type: "nowPlaying";
+  hideWhenIdle?: boolean;
+}
+
+export const PROFILE_EMBED_KINDS = [
+  "youtube",
+  "spotify",
+  "appleMusic",
+  "soundcloud",
+  "twitch",
+  "github",
+  "steam",
+  "minecraft",
+] as const;
+
+export type ProfileEmbedKind = (typeof PROFILE_EMBED_KINDS)[number];
+
+export const PROFILE_EMBED_IFRAME_KINDS = [
+  "youtube",
+  "spotify",
+  "appleMusic",
+  "soundcloud",
+] as const satisfies readonly ProfileEmbedKind[];
+
+export interface ProfileEmbedBlock extends ProfileBlockBase {
+  type: "embed";
+  kind: ProfileEmbedKind;
+  url?: string | null;
+}
+
+export const PROFILE_GALLERY_MAX_IMAGES = 8;
+
+export const PROFILE_GALLERY_LAYOUTS = [
+  "grid",
+  "carousel",
+  "featured",
+  "masonry",
+  "filmstrip",
+  "slideshow",
+] as const;
+
+export type ProfileGalleryLayout = (typeof PROFILE_GALLERY_LAYOUTS)[number];
+
+export interface ProfileGalleryImage {
+  src: string;
+}
+
+export interface ProfileGalleryBlock extends ProfileBlockBase {
+  type: "gallery";
+  images: ProfileGalleryImage[];
+  layout?: ProfileGalleryLayout;
+}
+
 export type APIProfileBlock =
   | ProfileHeaderBlock
   | ProfileTextBlock
@@ -932,7 +1052,11 @@ export type APIProfileBlock =
   | ProfileDividerBlock
   | ProfileQuoteBlock
   | ProfileDrawBlock
-  | ProfileStickerBlock;
+  | ProfileStickerBlock
+  | ProfileCountdownBlock
+  | ProfileGalleryBlock
+  | ProfileNowPlayingBlock
+  | ProfileEmbedBlock;
 
 export type ProfileBlockSize = "s" | "m" | "l";
 
@@ -1067,19 +1191,70 @@ export interface APIProfileMusic {
   apple?: APIMessageEmbed["apple"];
 }
 
+export const DISPLAY_NAME_EFFECTS = [
+  "glow",
+  "neon",
+  "shadow",
+  "outline",
+  "shimmer",
+  "rainbow",
+] as const;
+
+export type DisplayNameEffect = (typeof DISPLAY_NAME_EFFECTS)[number];
+
+export interface APIDisplayNameStyle {
+  color?: string | null;
+  font?: string | null;
+  effect?: DisplayNameEffect | null;
+  effectColor?: string | null;
+}
+
+export interface APIProfileTheme {
+  sourceId: string;
+  name: string;
+  type: ThemeType;
+  style: ThemeStyle;
+  colors: APITheme["colors"];
+  typographyColors: APITheme["typography"]["colors"];
+}
+
+export const PROFILE_BACKGROUND_IMAGE_FITS = [
+  "fill",
+  "fitWidth",
+  "repeatDown",
+  "tile",
+] as const;
+
+export type ProfileBackgroundImageFit =
+  (typeof PROFILE_BACKGROUND_IMAGE_FITS)[number];
+
 export interface APIUserProfile {
   userId: Snowflake;
   configured: boolean;
   backgroundColor?: string | null;
   backgroundImage?: string | null;
+  backgroundImageFit?: ProfileBackgroundImageFit | null;
   banner?: string | null;
   bio?: string | null;
   pronouns?: string | null;
   pageFontFamily?: string | null;
+  theme?: APIProfileTheme | null;
+  displayNameStyle?: APIDisplayNameStyle | null;
   profileMusic?: APIProfileMusic | null;
   blocks: APIProfileBlock[];
   mobileBlocks: APIMobileProfileBlock[];
   updatedAt: Date;
+}
+
+export type APIUserProfileSnapshot = Omit<
+  APIUserProfile,
+  "userId" | "configured" | "updatedAt"
+>;
+
+export interface APIUserProfileVersion {
+  id: string;
+  savedAt: Date | string;
+  profile: APIUserProfileSnapshot;
 }
 
 export interface APIMinecraftLink {

@@ -69,6 +69,7 @@ export const GatewayOpcodes = {
   MentionClearAll: 39,
   DiscordImportExecute: 40,
   RequestSpaceMembers: 41,
+  SpaceMemberProfileUpdate: 42,
 } as const;
 
 export const GatewayDispatchEvents = {
@@ -215,6 +216,8 @@ export const GatewayDispatchEvents = {
   MessageReminderUpdate: "MESSAGE_REMINDER_UPDATE",
   MessageReminderDelete: "MESSAGE_REMINDER_DELETE",
   MessageReminderAck: "MESSAGE_REMINDER_ACK",
+
+  SpaceMemberProfileAck: "SPACE_MEMBER_PROFILE_ACK",
 
   // Scheduled messages
   ScheduledMessageUpdate: "SCHEDULED_MESSAGE_UPDATE",
