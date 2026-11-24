@@ -98,7 +98,6 @@ export type UserExtendedSettings = ClientPreferences & {
   whoCanDm: DmPrivacy;
   profileVisibility: ProfileVisibility;
   shareRpcPresence: boolean;
-  autoCheckUpdates: boolean;
 };
 
 export const DEFAULT_EXTENDED_SETTINGS: UserExtendedSettings = {
@@ -106,7 +105,6 @@ export const DEFAULT_EXTENDED_SETTINGS: UserExtendedSettings = {
   whoCanDm: "everyone",
   profileVisibility: "everyone",
   shareRpcPresence: true,
-  autoCheckUpdates: true,
 };
 
 export function mergeClientPreferences(
@@ -150,10 +148,6 @@ export function mergeExtendedSettings(
     shareRpcPresence:
       typeof partial?.shareRpcPresence === "boolean"
         ? partial.shareRpcPresence
-        : true,
-    autoCheckUpdates:
-      typeof partial?.autoCheckUpdates === "boolean"
-        ? partial.autoCheckUpdates
         : true,
   };
 }

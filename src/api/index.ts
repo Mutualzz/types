@@ -139,11 +139,13 @@ export interface APIPrivateUser {
   accentColor: string;
   restrictedUntil?: Date | null;
   restrictionReason?: string | null;
+  lastSeenAt?: Date | null;
   createdAt: Date;
   updatedAt: Date;
   presence?: PresencePayload;
   discordId?: string | null;
   displayNameStyle?: APIDisplayNameStyle | null;
+  badgeSettings?: APIBadgeSettings | null;
 }
 
 export interface APIReadState {
@@ -1164,12 +1166,12 @@ export type APIMobileProfileBlock =
   | MobileProfileStickerBlock;
 
 export interface APIProfileMusicTrackRef {
-  source: "itunes" | "deezer";
+  source: "itunes";
   id: string;
 }
 
 export interface APIProfileMusicSearchTrack {
-  source: "itunes" | "deezer";
+  source: "itunes";
   id: string;
   name: string;
   artists: string;
@@ -1209,6 +1211,11 @@ export interface APIDisplayNameStyle {
   effectColor?: string | null;
 }
 
+export interface APIBadgeSettings {
+  order: string[];
+  hidden: string[];
+}
+
 export interface APIProfileTheme {
   sourceId: string;
   name: string;
@@ -1240,6 +1247,7 @@ export interface APIUserProfile {
   pageFontFamily?: string | null;
   theme?: APIProfileTheme | null;
   displayNameStyle?: APIDisplayNameStyle | null;
+  badgeSettings?: APIBadgeSettings | null;
   profileMusic?: APIProfileMusic | null;
   blocks: APIProfileBlock[];
   mobileBlocks: APIMobileProfileBlock[];
