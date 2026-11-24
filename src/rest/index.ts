@@ -223,6 +223,10 @@ export const CDNRoutes = {
     return `/themes/${themeId}/background/${hash}.${format}${query ? `?${query}` : ""}` as const;
   },
 
+  themeBackgroundVideo(themeId: Snowflake, hash: string) {
+    return `/themes/${themeId}/background/${hash}.mp4` as const;
+  },
+
   applicationIcon(
     applicationId: Snowflake,
     hash: string,
